@@ -13,8 +13,6 @@ import { NavBarModule } from "./nav-bar/nav.module";
 import { ApostadorModule } from "./apostador/apostador.module";
 import { AdministradorModule } from "./administrador/administrador.module";
 import { FormularioGrupoComponent } from "./apostador/grupo/formulario-grupo/formulario-grupo.component";
-import { ApostaComponent } from "./apostador/aposta/aposta.component";
-import { ApostaByGrupoComponent } from "./apostador/aposta/aposta-by-grupo/aposta-by-grupo.component";
 
 @NgModule({
   imports: [

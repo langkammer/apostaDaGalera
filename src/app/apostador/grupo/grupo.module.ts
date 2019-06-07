@@ -7,9 +7,10 @@ import { BlockUIModule } from 'ng-block-ui';
 
 import { GrupoComponent } from './grupo.component';
 import { AppRoutingModule } from 'src/app/app-routing-module';
+import { ConviteComponent } from '../convite/convite.component';
 
 @NgModule({
-    declarations: [GrupoComponent],
+    declarations: [GrupoComponent,ConviteComponent],
     imports: [ 
         CommonModule,
         FormsModule ,

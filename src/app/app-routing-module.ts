@@ -13,6 +13,7 @@ import { ResultadoDetalhadoByParticipanteComponent } from './apostador/resultado
 import { RegrasComponent } from './apostador/regras/regras.component';
 import { ApostaComponent } from './apostador/aposta/aposta.component';
 import { ApostaByGrupoComponent } from './apostador/aposta/aposta-by-grupo/aposta-by-grupo.component';
+import { ConviteComponent } from './apostador/convite/convite.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,10 @@ const routes: Routes = [
     {
         path : 'apostador/grupos',
         component : GrupoComponent
+    },
+    {
+        path : 'apostador/grupo/key/convite',
+        component : ConviteComponent
     },
     {
         path : 'apostador/regras',
@@ -36,6 +41,7 @@ const routes: Routes = [
         path : 'apostador/apostas',
         component : ApostaComponent
     },
+    
     {
         path : 'apostador/apostas/key/apostarByGrupo',
         component : ApostaByGrupoComponent
