@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+     <h1>Meus Grupos de Apostas</h1> 
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+      <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome Grupo</th>
+              <th>Top Rank</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cell</td>
+              <td>Cell</td>
+              <td class="mx-auto">
+                  <button type="button" class="btn btn-primary" routerLink="key/apostarByGrupo">
+                      Apostar
+                      <i class="fa fa-bookmark" aria-hidden="true"></i>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+  </div>  
+    
+</div>
+
+
+
+<!-- Modal de Regra de Aposta -->
+
+
+<div class="modal fade bd-example-modal-lg" id="modalGrupo" tabindex="-1" role="dialog" aria-labelledby="modalRegraLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRegraLabel">Grupo de Apostas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="form-group">
+          <label for="nomeGrupo">Nome do Grupo</label>
+          <input type="text" name="nomeGrupo" id="nomeGrupo" class="form-control" placeholder="Nome">
+        </div>
+
+
+        <div class="form-group">
+            <label for="ligaSelector">Qual Liga ?</label>
+            <select class="form-control" name="ligaSelector" id="ligaSelector">
+              <option>Copa do Brasil</option>
+              <option>Libertadores</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="ligaSelector">Qual Regra ?</label>
+          <select class="form-control" name="ligaSelector" id="ligaSelector">
+            <option>Regra Quartas</option>
+            <option>Regra Oitavas</option>
+            <option>Regra Semin Final</option>
+            <option>Regra Final</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>

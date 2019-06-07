@@ -1,0 +1,176 @@
+<div class="container">
+  
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+          <h1>Minhas Regra de Apostas</h1> 
+        </div>
+
+    </div>
+
+    <p></p>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <button type="button" class="btn btn-primary" (click)="abreModal('new',{});">Novo Regra de Apostas</button>
+
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Nome Aposta</th>
+                    <th>Descricao</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                    <td class="mx-auto">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        <p>&ensp;</p>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>  
+          
+    </div>
+
+
+</div>
+
+
+
+<!-- Modal de Regra de Aposta -->
+
+ 
+<div class="modal fade bd-example-modal-lg" id="modalRegra" tabindex="-1" role="dialog" aria-labelledby="modalRegraLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRegraLabel">Regra de Aposta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="ligaSelector">Qual a Liga ?</label>
+          <select class="form-control" name="ligaSelector" id="ligaSelector">
+            <option>Brasileirao</option>
+            <option>Copa America</option>
+            <option>Copa do Brasil</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="noameRegra">Nome da Regra de Aposta</label>
+          <input type="text" class="form-control" id="noameRegra" aria-describedby="noameRegraHelp" placeholder="Digite o nome da Regra">
+        </div>
+        <div class="form-group">
+            <label for="descritRegra">Descricao Detalhada da Regra de Aposta</label>
+            <textarea type="text" name="descritRegra" id="descritRegra" class="form-control" placeholder="" rows="3"></textarea>
+        </div>
+        
+        
+        <p>Critérios de Aposta</p>
+        <button type="button" class="btn btn-primary" aria-label="Novo Criterio" (click)="showCriteriaCollapse();">
+           Novo Criterio
+        </button>
+      
+        <div class="collapse multi-collapse" id="colapseCiteria">
+              <div class="row">
+                    <div class="col-3">
+                        <p>Criterio de Acerto ?</p>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <select class="form-control" name="critACerto" id="critACerto">
+                        <option>Placar</option>
+                        <option>Resultado</option>
+                      </select>
+                    </div> 
+                    <div class="col-md-2">
+                        <p>Pontos ?</p>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <input type="text" name="pontuacao" id="pontuacao" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" id="pont" class="btn btn-success" aria-label="Novo Criterio" (click)="salvaCriterio();">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </button>
+                    </div>
+              </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Criterio</th>
+                <th>Pontuacao</th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td class="mx-auto">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <p>&ensp;</p>
+                    <button type="button" class="btn btn-danger">
+                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal de Criterios-->
+<!-- <div class="modal fade" id="criteriaModal" tabindex="-1" role="dialog" aria-labelledby="criteriaModalId" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Criterio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="critACerto">Criterio de Acerto ?</label>
+          <select class="form-control" name="critACerto" id="critACerto">
+            <option>Placar</option>
+            <option>Resultado</option>
+          </select>
+        </div> 
+        <div class="form-group">
+          <label for="pontuacao">Pontos</label>
+          <input type="text" name="pontuacao" id="pontuacao" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div> -->
