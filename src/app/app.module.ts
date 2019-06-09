@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlockUIModule } from "ng-block-ui";
 import { RouterModule } from "@angular/router";
 
-
 import { LoginModule } from "./login/login.module";
 import { NotfoundModule } from "./notfound/notfound.module";
 import { PrincipalModule } from "./principal/principal.module";
@@ -13,6 +12,10 @@ import { NavBarModule } from "./nav-bar/nav.module";
 import { ApostadorModule } from "./apostador/apostador.module";
 import { AdministradorModule } from "./administrador/administrador.module";
 import { FormularioGrupoComponent } from "./apostador/grupo/formulario-grupo/formulario-grupo.component";
+import * as bootstrap from "bootstrap";
+import * as $ from "jquery";
+
+
 
 @NgModule({
   imports: [

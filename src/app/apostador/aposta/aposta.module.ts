@@ -8,9 +8,11 @@ import { BlockUIModule } from 'ng-block-ui';
 import { ApostaComponent } from './aposta.component';
 import { AppRoutingModule } from 'src/app/app-routing-module';
 import { ApostaByGrupoComponent } from './aposta-by-grupo/aposta-by-grupo.component';
+import { ApostaByGrupoCampeonatoBrasileiroComponent } from './aposta-by-grupo-campeonato-brasileiro/aposta-by-grupo-campeonato-brasileiro.component';
+import { ApostaByGrupoCopaBrasilComponent } from './aposta-by-grupo-copa-brasil/aposta-by-grupo-copa-brasil.component';
 
 @NgModule({
-    declarations: [ApostaComponent,ApostaByGrupoComponent],
+    declarations: [ApostaComponent,ApostaByGrupoComponent,ApostaByGrupoCampeonatoBrasileiroComponent,ApostaByGrupoCopaBrasilComponent],
     imports: [ 
         CommonModule,
         FormsModule ,

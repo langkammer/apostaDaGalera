@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-regras',
@@ -28,6 +27,7 @@ export class RegrasComponent implements OnInit {
 
   abreModal = function (edit : string, object : any) {
     
+    console.log("a")
     if(edit != 'new')
       this.aposta = object;
     else

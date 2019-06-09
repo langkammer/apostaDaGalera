@@ -12,8 +12,9 @@ import { ResultadoDetalhadoComponent } from './apostador/resultados/resultado-de
 import { ResultadoDetalhadoByParticipanteComponent } from './apostador/resultados/resultado-detalhado-by-participante/resultado-detalhado-by-participante.component';
 import { RegrasComponent } from './apostador/regras/regras.component';
 import { ApostaComponent } from './apostador/aposta/aposta.component';
-import { ApostaByGrupoComponent } from './apostador/aposta/aposta-by-grupo/aposta-by-grupo.component';
 import { ConviteComponent } from './apostador/convite/convite.component';
+import { ApostaByGrupoCampeonatoBrasileiroComponent } from './apostador/aposta/aposta-by-grupo-campeonato-brasileiro/aposta-by-grupo-campeonato-brasileiro.component';
+import { ApostaByGrupoCopaBrasilComponent } from './apostador/aposta/aposta-by-grupo-copa-brasil/aposta-by-grupo-copa-brasil.component';
 
 
 const routes: Routes = [
@@ -43,8 +44,12 @@ const routes: Routes = [
     },
     
     {
-        path : 'apostador/apostas/key/apostarByGrupo',
-        component : ApostaByGrupoComponent
+        path : 'apostador/apostas/key/apostaCampeonatoBrasileiro',
+        component : ApostaByGrupoCampeonatoBrasileiroComponent
+    },
+    {
+        path : 'apostador/apostas/key/apostaCopaDoBrasil',
+        component : ApostaByGrupoCopaBrasilComponent
     },
     {
         path : 'apostador/resultados/key/detalhadoByGrupo',
