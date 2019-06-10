@@ -69,6 +69,10 @@ const routes: Routes = [
         component : CadLigasComponent
     },
     {
+        path : 'login',
+        component : LoginComponent
+    },
+    {
         path: 'home',
         component : PrincipalComponent
     },

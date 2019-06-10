@@ -10,16 +10,19 @@
 
 </p>
 <p>
+    Regras :  {{grupo.descrit}}
+</p>
+<p>
     Critério das Regras : 
 </p>
 <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Tipo do Critério</th>
-                <th>Pontos</th>
-            </tr>
-        </thead>
-        <tbody>
+    <thead>
+        <tr>
+            <th>Tipo do Critério</th>
+            <th>Pontos</th>
+        </tr>
+    </thead>
+    <tbody>
             <tr *ngIf="grupo.crit1">
                 <td>{{grupo.crit1.tipo}}</td>
                 <td>{{grupo.crit1.ponto}}</td>
@@ -34,7 +37,7 @@
                 <td>{{grupo.crit3.ponto}}</td>
             </tr>
         </tbody>
-    </table>
+</table>
 
 
 <button type="button" class="btn btn-success">
