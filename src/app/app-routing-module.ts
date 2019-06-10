@@ -15,6 +15,8 @@ import { ApostaComponent } from './apostador/aposta/aposta.component';
 import { ConviteComponent } from './apostador/convite/convite.component';
 import { ApostaByGrupoCampeonatoBrasileiroComponent } from './apostador/aposta/aposta-by-grupo-campeonato-brasileiro/aposta-by-grupo-campeonato-brasileiro.component';
 import { ApostaByGrupoCopaBrasilComponent } from './apostador/aposta/aposta-by-grupo-copa-brasil/aposta-by-grupo-copa-brasil.component';
+import { CadLigasComponent } from './administrador/cad-ligas/cad-ligas.component';
+import { MembrosGrupoComponent } from './apostador/grupo/membros-grupo/membros-grupo.component';
 
 
 const routes: Routes = [
@@ -27,7 +29,7 @@ const routes: Routes = [
         component : GrupoComponent
     },
     {
-        path : 'apostador/grupo/key/convite',
+        path : 'apostador/grupos/:key/convite',
         component : ConviteComponent
     },
     {
@@ -42,7 +44,10 @@ const routes: Routes = [
         path : 'apostador/apostas',
         component : ApostaComponent
     },
-    
+    {
+        path: 'apostador/grupoByAposta/:key',
+        component : MembrosGrupoComponent
+    },
     {
         path : 'apostador/apostas/key/apostaCampeonatoBrasileiro',
         component : ApostaByGrupoCampeonatoBrasileiroComponent
@@ -58,6 +63,10 @@ const routes: Routes = [
     {
         path : 'apostador/resultados/key/detalhadoByPaticipante',
         component : ResultadoDetalhadoByParticipanteComponent
+    },
+    {
+        path : 'admin/ligas',
+        component : CadLigasComponent
     },
     {
         path: 'home',

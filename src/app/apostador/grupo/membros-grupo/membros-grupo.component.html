@@ -1,0 +1,46 @@
+<block-ui>
+    <span class="sr-only">Carregando...</span>
+</block-ui>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+     <h1>Membros do Grupo</h1> 
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+      <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Rank do Grupo</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of membrosByGrupo | async">
+              <td>1</td>
+              <td>{{i.user.nome}}</td>
+              <td>{{i.user.email}}</td>
+              <td class="mx-auto">
+                <div class="row">
+                    <div class="mx-auto">
+                        <button type="button" class="btn btn-danger" (click)="deleteItem(i.key);">
+                            <i class="fa fa-minus-circle" aria-hidden="true">Deletar </i>
+                        </button>
+                    </div>
+                </div>
+
+                  
+              </td>
+            </tr>
+          </tbody>
+      </table>
+  </div>  
+    
+</div>

@@ -1,3 +1,79 @@
-<p>
-  cad-ligas works!
-</p>
+
+  <div class="panel panel-default">
+      <div class="panel-body">
+       <h1>Ligas</h1> 
+      </div>
+  </div>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <button type="button" class="btn btn-primary" (click)="abreModal('new',{});">Criar Liga</button>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nome Liga</th>
+                <th>Ano</th>
+                <th>Qtd Rodadas</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of items | async">
+                <td>{{i.tipoLiga}}</td>
+                <td>{{i.ano}}</td>
+                <td>{{i.qtdRodadas}}</td>
+                <td class="mx-auto">
+                    <button type="button" class="btn btn-danger" (click)="deleteItem(i.key);">
+                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                    </button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>  
+      
+</div>
+
+
+
+<!-- Modal de Regra de Aposta -->
+
+ 
+<div class="modal fade bd-example-modal-lg" id="modalLiga" tabindex="-1" role="dialog" aria-labelledby="modalRegraLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalRegraLabel">Liga</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+              <label for="ligaSelector">Qual Liga ?</label>
+              <select class="form-control" name="ligaSelector" [(ngModel)]="liga.tipoLiga" id="ligaSelector">
+                  <option value="CAMPEONATO_BRASILEIRO">Brasileirao</option>
+                  <option value="COPA_BRASILEIRO">Copa do Brasil</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="ano">Ano</label>
+              <input type="text" name="ano" id="ano" [(ngModel)]="liga.ano" class="form-control" placeholder="Ano">
+          </div>
+          <div class="form-group">
+              <label for="qtdRodadas">Quantidade Rodadas</label>
+              <input type="number" name="qtdRodadas" id="qtdRodadas" [(ngModel)]="liga.qtdRodadas" class="form-control" placeholder="Qtd Rodadas">
+          </div>
+          <div class="form-group">
+              <label for="descritRegra">Descricao Liga</label>
+              <textarea type="text" name="descritRegra" id="descritRegra" class="form-control"  [(ngModel)]="liga.descript"  placeholder="" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary" (click)="save()">Salvar mudanças</button>
+        </div>
+      </div>
+    </div>
+  </div>

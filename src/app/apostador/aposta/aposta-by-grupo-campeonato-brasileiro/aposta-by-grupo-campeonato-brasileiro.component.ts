@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApostaByGrupoCampeonatoBrasileiroComponent implements OnInit {
 
+  rodadaAtual = 10;
+
+
+  qtdsRodadas = 38;
+
   constructor() { }
 
   ngOnInit() {

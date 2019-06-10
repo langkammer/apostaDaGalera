@@ -9,6 +9,11 @@ export class ApostaByGrupoCopaBrasilComponent implements OnInit {
 
   constructor() { }
 
+  rodadaAtual = 5;
+
+
+  qtdsRodadas = 8;
+  
   ngOnInit() {
   }
 

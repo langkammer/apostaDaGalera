@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-convite',
-  templateUrl: './convite.component.html',
-  styleUrls: ['./convite.component.css']
+  selector: 'app-membros-grupo',
+  templateUrl: './membros-grupo.component.html',
+  styleUrls: ['./membros-grupo.component.css']
 })
-export class ConviteComponent implements OnInit {
+export class MembrosGrupoComponent implements OnInit {
 
   key = "";
   db : AngularFireDatabase;
-  grupo : any = {};
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -25,13 +24,11 @@ export class ConviteComponent implements OnInit {
 
     console.log(this.key)
     this.blockUI.start('Carregando Resultados ...'); // Start blocking
-    this.grupo =  this.db.object('grupos/' + this.key).snapshotChanges().subscribe( res =>{
-      if (res) {
-          console.log(res.payload.val());
-          this.grupo = res.payload.val();
-          this.blockUI.stop(); // Stop blocking
-      }
-    });
-   
+
+    this.db.object('membrosByGrupo/' + this.key).snapshotChanges().subscribe( res =>{
+        if (res) {
+            this.blockUI.stop(); // Stop blocking
+        }
+    })
   }
 }

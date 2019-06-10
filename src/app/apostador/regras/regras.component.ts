@@ -20,7 +20,6 @@ export class RegrasComponent implements OnInit {
 
   showCriteriaCollapse = function(){
       console.log("collapse")
-      $('#colapseCiteria').collapse('toggle')
   }
 
 

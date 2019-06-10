@@ -19,35 +19,32 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>
-                    <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Rank</th>
-                            <th>Nome</th>
-                            <th>Pontos</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                            <td>Cell</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                </td>
+              <tr *ngFor="let i of grupos | async">
+                <td>{{i.nome}}</td>
+                <td>{{i.userGestor.nome}}</td>
                 <td class="mx-auto">
-                    <button type="button" class="btn btn-primary">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <p>&ensp;</p>
-                    <button type="button" class="btn btn-danger">
-                        <i class="fa fa-minus-circle" aria-hidden="true"></i>
-                    </button>
+                  <div class="row">
+                      <div class="mx-auto">
+                          <button type="button" class="btn btn-danger" (click)="deleteItem(i.key);">
+                              <i class="fa fa-minus-circle" aria-hidden="true">Deletar </i>
+                          </button>
+                      </div>
+                     <div class="mx-auto">
+                        <button type="button" class="btn btn-secondary" routerLink="../grupoByAposta/{{i.key}}">
+                            Membros
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                        </button>
+                     </div>
+                     <div class="mx-auto">
+                        <button type="button" class="btn btn-success" routerLink="{{i.key}}/convite">
+                          Convidar
+                          <i class="fa fa-share" aria-hidden="true"></i>
+                        </button>
+                     </div> 
+  
+                  </div>
+
+                    
                 </td>
               </tr>
             </tbody>
@@ -75,30 +72,83 @@
 
           <div class="form-group">
             <label for="nomeGrupo">Nome do Grupo</label>
-            <input type="text" name="nomeGrupo" id="nomeGrupo" class="form-control" placeholder="Nome">
+            <input type="text" name="nomeGrupo" id="nomeGrupo" [(ngModel)]="grupo.nome" class="form-control" placeholder="Nome">
           </div>
 
 
           <div class="form-group">
               <label for="ligaSelector">Qual Liga ?</label>
-              <select class="form-control" name="ligaSelector" id="ligaSelector">
-                <option>Copa do Brasil</option>
-                <option>Libertadores</option>
+              <select class="form-control" name="ligaSelector" [(ngModel)]="grupo.liga" id="ligaSelector">
+                  <option *ngFor="let o of ligas | async" [value]="o.key">
+                      {{o.tipoLiga}} Ano {{o.ano}}
+                  </option>
               </select>
+
           </div>
           <div class="form-group">
-            <label for="ligaSelector">Qual Regra ?</label>
-            <select class="form-control" name="ligaSelector" id="ligaSelector">
-              <option>Regra Quartas</option>
-              <option>Regra Oitavas</option>
-              <option>Regra Semin Final</option>
-              <option>Regra Final</option>
-            </select>
+              <label for="descritRegra">Descricao Detalhada da Regra de Aposta</label>
+              <textarea type="text" name="descritRegra" id="descritRegra" class="form-control" placeholder="" rows="2"></textarea>
           </div>
+          <p>Você pode Colocar até 3 critérios</p>
+          <div class="row">
+              <div class="col-3">
+                  <p>Criterio de Acerto ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit1.tipo">
+                  <option selected value="NDA">Nda</option>
+                  <option value="PLACAR">Placar</option>
+                  <option value="RESULTADO">Resultado</option>
+                </select>
+              </div> 
+              <div class="col-md-3">
+                  <p>Pontos ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit1.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-3">
+                  <p>Criterio de Acerto ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit2.tipo">
+                  <option selected value="NDA">Nda</option>
+                  <option value="PLACAR">Placar</option>
+                  <option value="RESULTADO">Resultado</option>
+                </select>
+              </div> 
+              <div class="col-md-3">
+                  <p>Pontos ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit2.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-3">
+                  <p>Criterio de Acerto ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit3.tipo">
+                  <option selected value="NDA">Nda</option>
+                  <option value="PLACAR">Placar</option>
+                  <option value="RESULTADO">Resultado</option>
+                </select>
+              </div> 
+              <div class="col-md-3">
+                  <p>Pontos ?</p>
+              </div>
+              <div class="form-group col-md-3">
+                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit3.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
+              </div>
+          </div>
+        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Salvar mudanças</button>
+          <button type="button" class="btn btn-primary" (click)="save()">Salvar mudanças</button>
         </div>
       </div>
     </div>

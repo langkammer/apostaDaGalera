@@ -6,15 +6,35 @@
     ao aceitar você estará ciente com as regras abaixo.
 </p>
 <p>
-    Grupo :
-</p>
-<p>
-    Regras da Apostas :
-</p>
-<p>
-    Critério das Regras :
-</p>
+    Grupo : {{grupo.nome}}
 
+</p>
+<p>
+    Critério das Regras : 
+</p>
+<table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Tipo do Critério</th>
+                <th>Pontos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="grupo.crit1">
+                <td>{{grupo.crit1.tipo}}</td>
+                <td>{{grupo.crit1.ponto}}</td>
+                <td></td>
+            </tr>
+            <tr *ngIf="grupo.crit2">
+                <td>{{grupo.crit2.tipo}}</td>
+                <td>{{grupo.crit2.ponto}}</td>
+            </tr>
+            <tr *ngIf="grupo.crit3">
+                <td>{{grupo.crit3.tipo}}</td>
+                <td>{{grupo.crit3.ponto}}</td>
+            </tr>
+        </tbody>
+    </table>
 
 
 <button type="button" class="btn btn-success">
