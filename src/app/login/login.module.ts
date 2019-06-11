@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from '../app-routing-module';
 import { LoginComponent } from './login.component';
 
 @NgModule({
@@ -14,9 +14,11 @@ import { LoginComponent } from './login.component';
         CommonModule,
         FormsModule ,
         BrowserModule,
+        HttpClientModule,
         BrowserAnimationsModule,
-        AppRoutingModule,
         BlockUIModule.forRoot()
-     ]
+     ],
+     exports : [LoginComponent]
 })
 export class LoginModule { }
+

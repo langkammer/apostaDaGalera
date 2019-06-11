@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 })
 export class GrupoComponent implements OnInit {
 
-
+ 
   aposta : any = {};
 
   itemRefLigas: AngularFireList<any>;

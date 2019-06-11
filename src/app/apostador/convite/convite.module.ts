@@ -5,20 +5,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
 
-import { GrupoComponent } from './grupo.component';
-import { AppRoutingModule } from 'src/app/app-routing-module';
-import { ConviteComponent } from '../convite/convite.component';
-import { MembrosGrupoComponent } from './membros-grupo/membros-grupo.component';
+
+import { ConviteComponent } from './convite.component';
+import { LoginModule } from 'src/app/login/login.module';
 
 @NgModule({
-    declarations: [GrupoComponent,MembrosGrupoComponent],
+    declarations: [ConviteComponent],
     imports: [ 
         CommonModule,
         FormsModule ,
         BrowserModule,
+        LoginModule,
         BrowserAnimationsModule,
-        AppRoutingModule,
         BlockUIModule.forRoot()
      ]
 })
-export class GrupoModule { }
+export class ConviteModule { }

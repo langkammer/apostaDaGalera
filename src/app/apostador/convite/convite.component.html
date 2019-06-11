@@ -1,45 +1,55 @@
-<p>
-  Ola! 
-</p>
-<p>
-    Você recebeu um convite para um grupo de apostas,
-    ao aceitar você estará ciente com as regras abaixo.
-</p>
-<p>
-    Grupo : {{grupo.nome}}
-
-</p>
-<p>
-    Regras :  {{grupo.descrit}}
-</p>
-<p>
-    Critério das Regras : 
-</p>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Tipo do Critério</th>
-            <th>Pontos</th>
-        </tr>
-    </thead>
-    <tbody>
-            <tr *ngIf="grupo.crit1">
-                <td>{{grupo.crit1.tipo}}</td>
-                <td>{{grupo.crit1.ponto}}</td>
-                <td></td>
-            </tr>
-            <tr *ngIf="grupo.crit2">
-                <td>{{grupo.crit2.tipo}}</td>
-                <td>{{grupo.crit2.ponto}}</td>
-            </tr>
-            <tr *ngIf="grupo.crit3">
-                <td>{{grupo.crit3.tipo}}</td>
-                <td>{{grupo.crit3.ponto}}</td>
-            </tr>
-        </tbody>
-</table>
 
 
-<button type="button" class="btn btn-success">
-    Aceitar Convite <i class="fa fa-check" aria-hidden="true"></i>
-</button>
+<div *ngIf="!userLogado">
+    <div class="container">
+        <h2>
+            Ola! 
+        </h2>
+        <h4>
+            Você recebeu um convite para um grupo de apostas,
+            ao aceitar você estará ciente com as regras abaixo.
+        </h4>
+    </div>    
+    <app-login></app-login>
+</div>
+
+<div *ngIf="userLogado">
+      <p>
+          Grupo : {{grupo.nome}}
+      
+      </p>
+      <p>
+          Regras :  {{grupo.descrit}}
+      </p>
+      <p>
+          Critério das Regras : 
+      </p>
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                  <th>Tipo do Critério</th>
+                  <th>Pontos</th>
+              </tr>
+          </thead>
+          <tbody>
+                  <tr *ngIf="grupo.crit1">
+                      <td>{{grupo.crit1.tipo}}</td>
+                      <td>{{grupo.crit1.ponto}}</td>
+                      <td></td>
+                  </tr>
+                  <tr *ngIf="grupo.crit2">
+                      <td>{{grupo.crit2.tipo}}</td>
+                      <td>{{grupo.crit2.ponto}}</td>
+                  </tr>
+                  <tr *ngIf="grupo.crit3">
+                      <td>{{grupo.crit3.tipo}}</td>
+                      <td>{{grupo.crit3.ponto}}</td>
+                  </tr>
+              </tbody>
+      </table>
+      
+      
+      <button type="button" class="btn btn-success">
+          Aceitar Convite <i class="fa fa-check" aria-hidden="true"></i>
+      </button>
+</div>

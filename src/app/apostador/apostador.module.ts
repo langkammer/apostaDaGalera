@@ -4,6 +4,7 @@ import { GrupoModule } from './grupo/grupo.module';
 import { ResultadosModule } from './resultados/resultados.module';
 import { RegrasModule } from './regras/regras.module';
 import { ApostaModule } from './aposta/aposta.module';
+import { ConviteModule } from './convite/convite.module';
 
 @NgModule({
   declarations: [],
@@ -12,6 +13,7 @@ import { ApostaModule } from './aposta/aposta.module';
     RegrasModule,
     GrupoModule,
     ResultadosModule,
+    ConviteModule,
     ApostaModule
   ]
 })

@@ -40,6 +40,7 @@ import { FirebaseModuleImports } from "./firebase/firebase.mdule";
   ],
   exports :  [
     RouterModule,
+    LoginModule,
     FirebaseModuleImports
   ],
   providers: [],
