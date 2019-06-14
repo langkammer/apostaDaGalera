@@ -20,6 +20,7 @@ import * as bootstrap from "bootstrap";
 import * as $ from "jquery";
 import { environment } from "src/environments/environment";
 import { FirebaseModuleImports } from "./firebase/firebase.mdule";
+import { MyMaterialModule } from "./material-module";
 
 
 
@@ -28,6 +29,7 @@ import { FirebaseModuleImports } from "./firebase/firebase.mdule";
     BrowserModule,
     BrowserAnimationsModule,
     ApostadorModule,
+    MyMaterialModule,
     AdministradorModule,
     LoginModule,
     NavBarModule,
@@ -41,6 +43,7 @@ import { FirebaseModuleImports } from "./firebase/firebase.mdule";
   exports :  [
     RouterModule,
     LoginModule,
+    MyMaterialModule,
     FirebaseModuleImports
   ],
   providers: [],

@@ -7,18 +7,24 @@ import { BlockUIModule } from 'ng-block-ui';
 import { HttpClientModule } from '@angular/common/http';
 
 import { LoginComponent } from './login.component';
+import { LoginModalComponent } from './modal/login-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
-    declarations: [LoginComponent],
+    declarations: [LoginComponent,LoginModalComponent],
     imports: [ 
         CommonModule,
         FormsModule ,
         BrowserModule,
+        NgbModule,
         HttpClientModule,
         BrowserAnimationsModule,
         BlockUIModule.forRoot()
      ],
-     exports : [LoginComponent]
+     entryComponents: [LoginModalComponent],
+     exports : [LoginComponent,LoginModalComponent]
 })
 export class LoginModule { }
 

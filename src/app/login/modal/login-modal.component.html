@@ -1,0 +1,78 @@
+<!-- Modal -->
+<div class="modal-header">
+  <h4 class="modal-title">Hi there!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <h5 class="card-title text-center">Cadastrar</h5>
+  <form class="form-signin">
+    <div class="form-label-group">
+        <label for="nomeCad">Nome</label>
+        <input type="nomeCad" name="nomeCad" id="nomeCad" [(ngModel)]="usuario.nome" class="form-control" placeholder="Nome" required>
+    </div>
+    <div class="form-label-group">
+      <label for="emailCad">Email address</label>
+      <input type="email"  name="emailCad" id="emailCad" [(ngModel)]="usuario.email" class="form-control" placeholder="Email address" required>
+    </div>
+    <div class="form-label-group">
+        <label for="passCad">Senha</label>
+        <input type="password" name="passCad" id="passCad" [(ngModel)]="usuario.senha" class="form-control" placeholder="Senha" required>
+    </div>
+    <div class="custom-control custom-checkbox mb-3">
+    </div>
+    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="loginNormal();">Criar Conta</button>
+    <hr class="my-4">
+    <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit" (click)="logarFacebook();">
+      <i class="fa fa-facebook-official" aria-hidden="true"></i>
+      Cadastrar com Facebook
+    </button>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>
+
+<!-- 
+<div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h5 class="card-title text-center">Cadastrar</h5>
+            <form class="form-signin">
+              <div class="form-label-group">
+                  <label for="nomeCad">Nome</label>
+                  <input type="nomeCad" name="nomeCad" id="nomeCad" [(ngModel)]="usuario.nome" class="form-control" placeholder="Nome" required>
+              </div>
+              <div class="form-label-group">
+                <label for="emailCad">Email address</label>
+                <input type="email"  name="emailCad" id="emailCad" [(ngModel)]="usuario.email" class="form-control" placeholder="Email address" required>
+              </div>
+              <div class="form-label-group">
+                  <label for="passCad">Senha</label>
+                  <input type="password" name="passCad" id="passCad" [(ngModel)]="usuario.senha" class="form-control" placeholder="Senha" required>
+              </div>
+              <div class="custom-control custom-checkbox mb-3">
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="loginNormal();">Criar Conta</button>
+              <hr class="my-4">
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit" (click)="logarFacebook();">
+                <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                Cadastrar com Facebook
+              </button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal();">Close</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div> -->

@@ -2,7 +2,6 @@
 <block-ui>
   <span class="sr-only">Carregando...</span>
 </block-ui>
-perfil : {{perfil}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="home">
         <span class="badge badge-primary">Aposta da Galera</span>
@@ -22,7 +21,7 @@ perfil : {{perfil}}
                   </div>
                 </li>
           </ul>
-          <ul class="navbar-nav" routerLinkActive="active">
+          <ul class="navbar-nav" routerLinkActive="active" *ngIf="email">
             <li class="nav-item" routerLinkActive="active">
                 <a class="nav-link" routerLink="apostador/resultados">
                   <i class="fa fa-bar-chart" aria-hidden="true"></i>
@@ -49,7 +48,7 @@ perfil : {{perfil}}
                 </div>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" *ngIf="isAdmin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    Administrador
                   <i class="fa fa-wrench" aria-hidden="true"></i>
               </a>
@@ -64,15 +63,17 @@ perfil : {{perfil}}
                 </a>
               </div>
             </li>
-            <li class="nav-item"  routerLinkActive="active" >
-                <a class="nav-link" routerLink="login">Login</a>
-            </li>
-            <li class="nav-item"   >
+            <li class="nav-item"    *ngIf="email">
               <a class="nav-link" (click)="logout()">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 Logout
               </a>
             </li>
+        </ul>
+        <ul class="navbar-nav" routerLinkActive="active" *ngIf="!email">
+          <li class="nav-item"  routerLinkActive="active" >
+            <a class="nav-link" routerLink="login">Login</a>
+          </li>
         </ul>
     </div>
   </nav>
