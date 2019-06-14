@@ -1,0 +1,5 @@
+.custom-class {
+    width: fit-content !important;
+    max-width: 95% !important;
+    max-height: 95%;
+}
