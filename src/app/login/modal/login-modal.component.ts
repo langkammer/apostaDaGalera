@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { LoginComponent } from '../login.component';
 
 @Component({
     selector: 'app-login-modal',
@@ -7,11 +10,26 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     styleUrls: ['./login-modal.component.css']
   })
 export class LoginModalComponent {
-  constructor(private modalService: NgbModal, public activeModal: NgbActiveModal) {}
+  constructor(
+    public dialogRef: MatDialogRef<LoginModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: LoginComponent) {}
 
-  open() {
-    this.modalService.open(LoginModalComponent, {
-      size: 'lg'
-    });
+    
+  usuario:any = {};
+
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+  passwordFormControl = new FormControl('', [
+    Validators.required
+  ]);
+  nameFormControl = new FormControl('', [
+    Validators.required
+  ]);
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

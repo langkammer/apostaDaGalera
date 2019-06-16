@@ -7,6 +7,7 @@ import { VinculoService } from '../services/vinculo.service';
 import { finalize } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginModalComponent } from './modal/login-modal.component';
+import { MatDialog } from '@angular/material';
 
 
 @Component({
@@ -29,13 +30,14 @@ export class LoginComponent implements OnInit {
   login:any = {};
 
   @BlockUI() blockUI: NgBlockUI;
-  
+
 
   constructor(
     public afAuth: AngularFireAuth   ,
     db: AngularFireDatabase,
     public vinculoService: VinculoService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public dialog: MatDialog
      ) 
   {
     this.perfiUserRef = db.list('perfilUsuarios');
@@ -141,10 +143,29 @@ export class LoginComponent implements OnInit {
   closeModal(){
     this.resetLogin();
   }
+//   openDialog() {
+//     const dialogRef = this.dialog.open(LoginModalComponent);
 
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log(`Dialog result: ${result}`);
+//     });
+//   }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      width: '500px'
+    //   data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    //   this.animal = result;
+    });
+  }
   abreCadastro() {
-    console.log("abre modal login cadastro");
-    this.modalService.open(LoginModalComponent);
+      this.openDialog();
+    // console.log("abre modal login cadastro");
+    // this.modalService.open(LoginModalComponent);
   }
   resetLogin(){
     this.usuario = {};
