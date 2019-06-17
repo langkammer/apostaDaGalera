@@ -67,7 +67,7 @@ export class NavBarComponent implements OnInit {
         },
         err => {
             console.log(err);
-            this.blockUI.stop(); // Stop blocking
+            this.blockUI.stop(); // Stop blocking m
         }
     );
 

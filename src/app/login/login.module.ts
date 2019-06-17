@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login.component';
 import { LoginModalComponent } from './modal/login-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MyMaterialModule } from '../material-module';
 
 
 
@@ -19,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule ,
         BrowserModule,
         NgbModule,
+        MyMaterialModule,
         HttpClientModule,
         BrowserAnimationsModule,
         BlockUIModule.forRoot()
