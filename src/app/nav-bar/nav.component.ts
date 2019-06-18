@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import { VinculoService } from '../services/vinculo.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ResponseBodyInterface, User } from '../interfaces/response-body.interface';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,9 @@ export class NavBarComponent implements OnInit {
 
   email = "";
 
-  perfil:any = {};
+  perfil:User;
+
+  response:ResponseBodyInterface;
 
   isAdmin:boolean = false;
 
@@ -39,7 +42,7 @@ export class NavBarComponent implements OnInit {
         if (res && res.uid) {
             console.log("logado : " , res.email)
             this.email = res.email;
-            this.carregaDefinicoesPerfil(res.uid);
+            this.carregaDefinicoesPerfil(res.email);
         } else {
           this.email = ''
         }
@@ -54,20 +57,20 @@ export class NavBarComponent implements OnInit {
 
   
 
-  carregaDefinicoesPerfil(uid){
-    this.blockUI.start('Carregando Resultados ...'); // Start blocking
+  carregaDefinicoesPerfil(email){
     this.vinculoService
-    .getUserByAuthID(uid)
+    .getUserByEmail(email)
     .subscribe(
-        sucesso => {
-          this.perfil = sucesso.data;
-          this.isAdmin = sucesso.data.permissaoAdmin
-          this.blockUI.stop();
+        response => {
+          this.response = response;
+          if(this.response.data){
+            this.perfil   = this.response.data;
+            this.isAdmin =  this.perfil.permissaoAdmin;
+          }
 
         },
         err => {
             console.log(err);
-            this.blockUI.stop(); // Stop blocking m
         }
     );
 

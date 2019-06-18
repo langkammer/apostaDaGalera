@@ -3,10 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlockUIModule } from "ng-block-ui";
 import { RouterModule } from "@angular/router";
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+
 
 import { LoginModule } from "./login/login.module";
 import { NotfoundModule } from "./notfound/notfound.module";
@@ -21,6 +18,7 @@ import * as $ from "jquery";
 import { environment } from "src/environments/environment";
 import { FirebaseModuleImports } from "./firebase/firebase.mdule";
 import { MyMaterialModule } from "./material-module";
+import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
 
 
 
@@ -36,7 +34,8 @@ import { MyMaterialModule } from "./material-module";
     NotfoundModule,
     PrincipalModule,
     BlockUIModule.forRoot(),
-    FirebaseModuleImports
+    FirebaseModuleImports,
+    VMessageModule
     
 
   ],
@@ -44,6 +43,7 @@ import { MyMaterialModule } from "./material-module";
     RouterModule,
     LoginModule,
     MyMaterialModule,
+    VMessageModule,
     FirebaseModuleImports
   ],
   providers: [],

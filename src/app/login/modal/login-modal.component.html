@@ -1,12 +1,40 @@
-<h1 mat-dialog-title>Hi</h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button  cdkFocusInitial>Ok</button>
-</div>
+<h1 mat-dialog-title>Registrar-se</h1>
 
+<div mat-dialog-content>
+  <form class="modal-form" [formGroup]="loginForm"  (submit)="cadastrar()" >
+      <mat-form-field class="modal-full-width">
+        <input type="text" matInput [(ngModel)]="usuario.nome" name="nome"  placeholder="Nome" formControlName="nome" required>
+      </mat-form-field>
+      <app-vmessage
+            *ngIf="loginForm.get('nome').errors?.required"
+            text="Nome de Usuario é Obrigatorio!">
+      </app-vmessage>      
+      <mat-form-field class="modal-full-width">
+        <input type="email" matInput [(ngModel)]="usuario.email" name="email"  placeholder="Email" formControlName="email" required>
+      </mat-form-field>
+      <app-vmessage
+        *ngIf="loginForm.get('email').errors?.required"
+        text="Email de Usuario é Obrigatorio!">
+      </app-vmessage>      
+      <mat-form-field class="modal-full-width">
+        <input type="password" matInput [(ngModel)]="usuario.senha" name="senha" placeholder="Senha"  formControlName="senha" required>
+      </mat-form-field>
+      <app-vmessage
+        *ngIf="loginForm.get('senha').errors?.required"
+        text="Senha é Obrigatorio!">
+      </app-vmessage>    
+     
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="cadastrar()"  style="width: 100%" type="submit" color="accent">Cadastrar</button>
+    <span class="spacer"></span>
+    <button  mat-stroked-button  (click)="facebook()"  style="width: 100%" color="primary">
+        <i class="fa fa-facebook-official" aria-hidden="true"></i>
+           Cadastrar com Facebook
+      </button>
+      <button mat-button [mat-dialog-close]="true" (click)="cancelar()" color="warn">Cancelar</button>
+
+</div>

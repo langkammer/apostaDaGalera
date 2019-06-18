@@ -1,34 +1,37 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-          <div class="card-body">
-            <h5 class="card-title text-center">Entrar</h5>
-            <form class="form-signin">
-              <div class="form-label-group">
-                <label for="loginEmail">Email address</label>
-                <input type="email" name="loginEmail" id="loginEmail" [(ngModel)]="login.email" class="form-control" placeholder="Email" required>
-              </div>
-              <div class="form-label-group">
-                <label for="loginPassword">Senha</label>
-                <input type="password" name="loginPassword" id="loginPassword" [(ngModel)]="login.senha" class="form-control" placeholder="Senha" required>
-              </div>
-              <div class="custom-control custom-checkbox mb-3">
-              </div>
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
-              <hr class="my-4">
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-secondary btn-lg btn-block text-uppercase" (click)="abreCadastro();">
-                Cadastrar 
-              </button>
-              <hr class="my-4">
-
-              <button type="submit" class="btn btn-info btn-facebook btn-lg  btn-block text-uppercase" type="submit">
-                <i class="fa fa-facebook-official" aria-hidden="true"></i>
-                Entrar com Facebook
-              </button>
-            </form>
-          </div>
+    <div class="row" *ngIf="email">
+        <p>Usuario ja Logado !</p>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3" *ngIf="!email">
+            <div class="card-body">
+              <h5 class="card-title text-center">Entrar</h5>
+              <form class="form-signin" [formGroup]="loginForm"  (submit)="cadastrar()" >
+                  <mat-form-field class="modal-full-width">
+                      <input type="email" matInput [(ngModel)]="email" name="email"  placeholder="Email" formControlName="email" required>
+                  </mat-form-field>
+                  <app-vmessage
+                    *ngIf="loginForm.get('email').errors?.required"
+                    text="Nome de Usuario é Obrigatorio!">
+                  </app-vmessage>      
+                  <mat-form-field class="modal-full-width">
+                    <input type="password" matInput [(ngModel)]="senha" name="senha" placeholder="Senha"  formControlName="senha" required>
+                  </mat-form-field>
+                  <app-vmessage
+                    *ngIf="loginForm.get('senha').errors?.required"
+                    text="Nome de Usuario é Obrigatorio!">
+                  </app-vmessage>  
+              </form>
+                  <p></p>  
+                  <button  mat-raised-button (click)="login()" style="width: 100%"  color="primary">Login</button>
+                  <p></p>
+                  <button  mat-raised-button (click)="abreCadastro()" style="width: 100%"  color="warn">Registrar-se</button>
+                  <p></p>
+                  <button  mat-stroked-button  (click)="logarFacebook()" style="width: 100%" color="primary">
+                      <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                        Entrar com Facebook
+                  </button>
+            </div>
+      </div>
+    </div>
 </div>
-
