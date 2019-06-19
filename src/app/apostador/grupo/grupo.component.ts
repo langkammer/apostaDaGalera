@@ -62,7 +62,7 @@ export class GrupoComponent implements OnInit {
 
   showCriteriaCollapse = function(){
     console.log("collapse")
-    $('#colapseCiteria').collapse('toggle')
+    
 }
 
 
@@ -73,13 +73,8 @@ export class GrupoComponent implements OnInit {
     else
       this.aposta = {};
 
-    $("#modalGrupo").modal("show");
   };
 
-  reset = function(){
-    this.grupo = {};
-    $("#modalGrupo").modal("hide");
-  }
 
   save() {
     console.log("ligas") //s
@@ -89,7 +84,6 @@ export class GrupoComponent implements OnInit {
     task.then((value) => {
       //SUCCESS
       console.log(value);
-      this.reset(); 
     }, (error) => {
         console.log(error);
     })

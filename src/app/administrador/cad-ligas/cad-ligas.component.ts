@@ -1,9 +1,13 @@
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatBottomSheet, MatDialog } from '@angular/material';
 
 
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Liga } from 'src/app/interfaces/response-body.interface';
+import { BottonButtonComponent } from './bottom/bottom-button.component';
+import { MsgService } from 'src/app/core/msg.service';
+import { LigaService } from 'src/app/services/liga.service';
+import { LigaModalComponent } from './modal/liga-modal.component';
 
 @Component({
   selector: 'app-cad-ligas',
@@ -12,65 +16,83 @@ import { map } from 'rxjs/operators';
 })
 export class CadLigasComponent implements OnInit {
 
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
-  grupo : any = {};
-  ambiente : any = {};
-  liga : any = {};
+  ligas : Liga[] =  [];
+
+
+  liga = {} as Liga;
+
+
+  displayedColumns: string[] = ['nome', 'tipoLiga' , 'qtdRodadas','id'];
+  dataSource = new MatTableDataSource<Liga>(this.ligas);
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
 
   constructor(
-    db: AngularFireDatabase
-    ) { 
-    this.itemsRef = db.list('ligas');
+        private bottomSheet: MatBottomSheet,
+        private service:LigaService,
+        private msgService:MsgService,
+        public dialog: MatDialog,
 
-    
-    this.items =  this.itemsRef.snapshotChanges().pipe(
-      map(changes => 
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
+  ){}
+
+  ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.list(1);
+  }
+
+  list(page:number){
+    this.service.list(page).subscribe(
+      sucesso =>{
+        console.log("RES ", sucesso);
+        if(sucesso.status == "SUCESSO")
+          this.populaDataTable(sucesso.data);
+        else
+          this.msgService.open(sucesso.status , sucesso.menssage);
+      },
+      error =>{
+        this.msgService.open("ERROR : => ", error);
+
+      }
+    )
+  }
+
+  openModal(tipoCrud:String,liga:Liga) : void{
+    console.log("abre modal liga");
+    if(!tipoCrud)
+      tipoCrud = "Nova";
+    const dialogRef = this.dialog.open(LigaModalComponent, {
+      width: '500px',
+      data: {action: tipoCrud, liga: this.liga}
+
+    });
+
+    dialogRef.afterClosed().subscribe((liga: Liga)  => {
+      console.log('The dialog was closed');
+    //   this.animal = result;
+        console.log(liga);
+        if(!!liga){
+          this.msgService.open("Nova Liga  ! : " , liga.nome)
+        }
+    });
+  }
+
+  populaDataTable(ligas:Liga[]){
+    this.dataSource = new MatTableDataSource<Liga>(this.ligas);
+  }
+  
+  openMenu(): void {
+    this.bottomSheet.open(BottonButtonComponent).afterDismissed().subscribe(
+      sucess => {
+        if(!!sucess)
+          console.log("fecou modal ", sucess);
+        else
+          console.log("Fechou sem resultados ...");  
+      }
     );
-
-    console.log("ligas...",this.items)  
+    console.log("ACESSOU SUB MENU");
   }
 
-
-  abreModal = function (edit : string, object : any) {
-    
-    if(edit != 'new')
-      this.grupo = object;
-    else
-      this.grupo = {};
-
-    $("#modalLiga").modal("show");
-  };
-
-
-  reset = function(){
-    this.grupo = {};
-    $("#modalLiga").modal("hide");
-  }
-
-
-  save() {
-    console.log("ligas") //s
-    // console.log(this.itemsCollection)
-
-    const task =  this.itemsRef.push(this.liga);
-    task.then((value) => {
-      //SUCCESS
-      console.log(value);
-      this.reset(); 
-    }, (error) => {
-        console.log(error);
-    })
-  }
-
-
-  deleteItem(key: string) {
-    this.itemsRef.remove(key);
-  }
-
-  ngOnInit() {
-  }
 
 }

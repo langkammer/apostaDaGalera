@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from '../core/request.services';
-import { Grupo } from '../interfaces/response-body.interface';
+import { Liga } from '../interfaces/response-body.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GrupoServiceService {
-
+export class LigaService {
   constructor(
     private request: RequestService
   ){}
   
   list(page:number) {
-    return this.request.post('/grupo/list',page);
+    return this.request.get('/liga/list?page='+page);
   }
 
-  create(grupo: Grupo){
-    return this.request.post('/grupo/create', grupo);
+  create(liga: Liga){
+    return this.request.post('/liga/create', liga);
   }
 
 }

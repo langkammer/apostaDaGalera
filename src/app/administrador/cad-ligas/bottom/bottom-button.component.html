@@ -1,0 +1,23 @@
+<mat-nav-list>
+        <a mat-list-item (click)="openMenu($event,'delete')">
+          <mat-icon>delete_outline</mat-icon>
+          <span mat-line>Deletar</span>
+        </a>
+        <a mat-list-item (click)="openMenu($event,'view')">
+          <mat-icon>tab</mat-icon>
+          <span mat-line>Visualizar</span>
+        </a>
+        <a  mat-list-item (click)="openMenu($event,'edit')">
+          <mat-icon>edit</mat-icon>
+          <span mat-line>Editar</span>
+        </a>
+        <a  mat-list-item (click)="openMenu($event,'members')">
+          <mat-icon>group</mat-icon>
+          <span mat-line>Membros</span>
+        </a>
+        <a  mat-list-item (click)="openMenu($event,'share')">
+          <mat-icon>share</mat-icon>
+          <span mat-line>Convidar</span>
+        </a>
+      
+</mat-nav-list>

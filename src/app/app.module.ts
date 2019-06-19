@@ -36,6 +36,7 @@ import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
     BlockUIModule.forRoot(),
     FirebaseModuleImports,
     VMessageModule
+
     
 
   ],

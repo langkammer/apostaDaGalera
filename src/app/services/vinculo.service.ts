@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Config } from '../config';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { RequestService } from '../core/request.services';
-import { ResponseBodyInterface } from '../interfaces/response-body.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +11,6 @@ export class VinculoService {
   constructor(
     private request: RequestService
     ) { }
-
-  @BlockUI() blockUI: NgBlockUI;
 
   list() {
     return this.request.get('/user/list');

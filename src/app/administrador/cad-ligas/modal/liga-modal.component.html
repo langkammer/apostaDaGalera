@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{data.action}} Liga </h1>
+
+<div mat-dialog-content>
+
+  <form class="modal-form" [formGroup]="ligaForm"  (submit)="cadastrar()" >
+      <mat-form-field class="modal-full-width">
+        <input type="text" matInput [(ngModel)]="liga.nome" name="nome"  placeholder="Nome" formControlName="nome"  required>
+      </mat-form-field>
+      <app-vmessage
+            *ngIf="ligaForm.get('nome').errors?.required"
+            text="Nome da Liga é Obrigatorio!">
+      </app-vmessage>      
+      <mat-form-field class="modal-full-width">
+        <input type="text" matInput [(ngModel)]="liga.logoLigatring" name="logoLigatring"  placeholder="Url Img Liga" formControlName="logoLigatring" required>
+      </mat-form-field>
+      <app-vmessage
+        *ngIf="ligaForm.get('logoLigatring').errors?.required"
+        text="Url Img da Liga é Obrigatorio!">
+      </app-vmessage>  
+      <mat-form-field class="modal-full-width">
+          <input type="number" matInput [(ngModel)]="liga.qtdRodadas" name="qtdRodadas"  placeholder="Quantidade de Rodadas" formControlName="qtdRodadas" required>
+      </mat-form-field>
+      <app-vmessage
+        *ngIf="ligaForm.get('qtdRodadas').errors?.required"
+        text="Quantidade de rodads da Liga é Obrigatorio!">
+      </app-vmessage>      
+      <mat-form-field class="modal-full-width">
+          <input type="text" matInput [(ngModel)]="liga.tipoLiga" name="tipoLiga"  placeholder="Tipo da Liga" formControlName="tipoLiga" required>
+      </mat-form-field>
+      <app-vmessage
+        *ngIf="ligaForm.get('tipoLiga').errors?.required"
+        text="Tipo da Liga é Obrigatorio!">
+      </app-vmessage>      
+      
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="cadastrar()"  style="width: 100%"  color="accent">Confirmar</button>
+    <span class="spacer"></span>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()" color="warn">Cancelar</button>
+
+</div>

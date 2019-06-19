@@ -62,8 +62,8 @@ export class NavBarComponent implements OnInit {
     .getUserByEmail(email)
     .subscribe(
         response => {
-          this.response = response;
-          if(this.response.data){
+          if(response){
+            this.response = response;
             this.perfil   = this.response.data;
             this.isAdmin =  this.perfil.permissaoAdmin;
           }

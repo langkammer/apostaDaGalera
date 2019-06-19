@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase/app';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import * as firebase from 'firebase/app';
+
 import { VinculoService } from '../services/vinculo.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginModalComponent } from './modal/login-modal.component';
 import { MatDialog } from '@angular/material';
-import { MsgService } from '../services/msg.service';
-import { User, ResponseBodyInterface } from '../interfaces/response-body.interface';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { User } from '../interfaces/response-body.interface';
+import { MsgService } from '../core/msg.service';
 
 
 @Component({

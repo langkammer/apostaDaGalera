@@ -5,10 +5,9 @@ import { LoginComponent } from '../login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { finalize } from 'rxjs/operators';
 import { VinculoService } from 'src/app/services/vinculo.service';
-import { User, ResponseBodyInterface } from 'src/app/interfaces/response-body.interface';
-import { MsgService } from 'src/app/services/msg.service';
+import { User } from 'src/app/interfaces/response-body.interface';
+import { MsgService } from 'src/app/core/msg.service';
 
 @Component({
     selector: 'app-login-modal',

@@ -31,9 +31,8 @@ export class RegrasComponent implements OnInit {
       this.aposta = object;
     else
       this.aposta = {};
-    //
-
-    $("#modalRegra").modal("show");
+    //  
+ 
   };
 
 
