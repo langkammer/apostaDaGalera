@@ -5,15 +5,19 @@ import { Grupo } from '../interfaces/response-body.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class GrupoServiceService {
+export class GrupoService {
 
   constructor(
     private request: RequestService
   ){}
   
-  list(page:number) {
-    return this.request.post('/grupo/list',page);
+  list(page:number,size:number,nome:string) {
+    // nome
+    // pagina
+    // size
+    return this.request.get('/liga/list?page='+page+'&size='+size+'&nome='+nome);
   }
+
 
   create(grupo: Grupo){
     return this.request.post('/grupo/create', grupo);
