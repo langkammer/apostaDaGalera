@@ -7,7 +7,7 @@ import { Observable, of } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
 import { GrupoService } from "src/app/services/grupo-service.service";
 
-export class LigasDataSource implements DataSource<Grupo> {
+export class GrupoDataSource implements DataSource<Grupo> {
 
   private grupoSubject = new BehaviorSubject<Grupo[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);

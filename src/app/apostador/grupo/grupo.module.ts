@@ -7,7 +7,6 @@ import { BlockUIModule } from 'ng-block-ui';
 
 import { GrupoComponent } from './grupo.component';
 import { AppRoutingModule } from 'src/app/app-routing-module';
-import { ConviteComponent } from '../convite/convite.component';
 import { MembrosGrupoComponent } from './membros-grupo/membros-grupo.component';
 import { MyMaterialModule } from 'src/app/material-module';
 

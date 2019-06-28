@@ -1,159 +1,88 @@
 
-  <div class="panel panel-default">
+  <div class="panel panel-default" >
       <div class="panel-body">
-       <h1>Meus Grupos de Apostas</h1> 
+       <h1 class="display-4">
+          Meus Grupos de Apostas 
+         <i class="fa fa-users" aria-hidden="true"></i>
+        </h1>
+
       </div>
   </div>
 
+
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="example-button-row">
-            <button mat-fab aria-label="Example icon-button with a heart icon">
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Nome Grupo</th>
-                <th>Gestor Grupo</th>
-                <th>Top Rank</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let i of grupos | async">
-                <td>{{i.nome}}</td>
-                <td>{{i.userGestor.nome}}</td>
-                <td class="mx-auto">
-                  <div class="row">
-                      <div class="mx-auto">
-                          <button type="button" class="btn btn-danger" (click)="deleteItem(i.key);">
-                            Deletar
-                            <i class="fa fa-minus-circle" aria-hidden="true"> </i>
-                          </button>
-                      </div>
-                     <div class="mx-auto">
-                        <button type="button" class="btn btn-secondary" routerLink="../grupoByAposta/{{i.key}}">
-                            Membros
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                        </button>
-                     </div>
-                     <div class="mx-auto">
-                        <button type="button" class="btn btn-success" routerLink="{{i.key}}/convite">
-                          Convidar
-                          <i class="fa fa-share" aria-hidden="true"></i>
-                        </button>
-                     </div> 
-  
-                  </div>
+      <div class="row">
+          <div class="col-md-6">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Buscar" [(ngModel)]="nome" (keyup.enter)="loadListPage()">
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <button mat-raised-button color="accent" class="full-width" aria-label="Buscar" (click)="loadUserPage()">
+                  Buscar <mat-icon>search</mat-icon>
+              </button>
+          </div>
 
-                    
-                </td>
+      </div>
+    </div>
+    <div class="panel-body">
+        <div class="mat-elevation-z8">
+
+            <table mat-table [dataSource]="dataSource">
+
+
+              <!-- Position Column -->
+              <ng-container  matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome. </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+              </ng-container>
+              
+              <!-- Liga -->
+              <ng-container matColumnDef="email">
+                
+                <th mat-header-cell *matHeaderCellDef class="column-right" > Email </th>
+                <td mat-cell *matCellDef="let element" class="column-right" > {{element.email}} </td>
+              </ng-container>
+          
+              <!-- Qtd Rodadas -->
+              <ng-container matColumnDef="provider">
+                  <th mat-header-cell *matHeaderCellDef class="column-right" > Tipo Login </th>
+                  <td mat-cell *matCellDef="let element" class="column-right" > {{element.provider}} </td>
+              </ng-container>
+
+
+              <!-- Qtd Rodadas -->
+              <ng-container matColumnDef="permissaoAdmin">
+                  <th mat-header-cell *matHeaderCellDef class="column-right" > Perfil </th>
+                  <td mat-cell *matCellDef="let element" class="column-right" >
+                     <i class="fa fa-lock" *ngIf="!element.permissaoAdmin" aria-hidden="true"></i>
+                     <i class="fa fa-unlock-alt" *ngIf="element.permissaoAdmin" aria-hidden="true"></i>
+                  </td>
+              </ng-container>
+
+              <!-- Btn  -->
+              <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef class="column-right" > Acao </th>
+                  <td mat-cell *matCellDef="let element" class="column-right" > 
+                    <button mat-icon-button  aria-label="Menu" (click)="openMenu(element)">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </td>
+              </ng-container>
+             
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
               </tr>
-            </tbody>
-        </table>
+            </table>
+          
+            <!-- <mat-paginator showFirstLastButtons></mat-paginator> -->
+            <mat-paginator [length]="dataSource.totalElements" 
+            [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+          
     </div>  
       
 </div>
 
 
-
-<!-- Modal de Regra de Aposta -->
-
- 
-<div class="modal fade bd-example-modal-lg" id="modalGrupo" tabindex="-1" role="dialog" aria-labelledby="modalRegraLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalRegraLabel">Grupo de Apostas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-
-          <div class="form-group">
-            <label for="nomeGrupo">Nome do Grupo</label>
-            <input type="text" name="nomeGrupo" id="nomeGrupo" [(ngModel)]="grupo.nome" class="form-control" placeholder="Nome">
-          </div>
-
-
-          <div class="form-group">
-              <label for="ligaSelector">Qual Liga ?</label>
-              <select class="form-control" name="ligaSelector" [(ngModel)]="grupo.liga" id="ligaSelector">
-                  <option *ngFor="let o of ligas | async" [value]="o.key">
-                      {{o.tipoLiga}} Ano {{o.ano}}
-                  </option>
-              </select>
-
-          </div>
-          <div class="form-group">
-              <label for="descritRegra">Descricao Detalhada da Regra de Aposta</label>
-              <textarea type="text" name="descritRegra" id="descritRegra" [(ngModel)]="grupo.descrit" class="form-control" placeholder="" rows="2"></textarea>
-          </div>
-          <p>Você pode Colocar até 3 critérios</p>
-          <div class="row">
-              <div class="col-3">
-                  <p>Criterio de Acerto ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit1.tipo">
-                  <option selected value="NDA">Nda</option>
-                  <option value="PLACAR">Placar</option>
-                  <option value="RESULTADO">Resultado</option>
-                </select>
-              </div> 
-              <div class="col-md-3">
-                  <p>Pontos ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit1.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-3">
-                  <p>Criterio de Acerto ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit2.tipo">
-                  <option selected value="NDA">Nda</option>
-                  <option value="PLACAR">Placar</option>
-                  <option value="RESULTADO">Resultado</option>
-                </select>
-              </div> 
-              <div class="col-md-3">
-                  <p>Pontos ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit2.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-3">
-                  <p>Criterio de Acerto ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <select class="form-control" name="critACerto" id="critACerto" [(ngModel)]="grupo.crit3.tipo">
-                  <option selected value="NDA">Nda</option>
-                  <option value="PLACAR">Placar</option>
-                  <option value="RESULTADO">Resultado</option>
-                </select>
-              </div> 
-              <div class="col-md-3">
-                  <p>Pontos ?</p>
-              </div>
-              <div class="form-group col-md-3">
-                <input type="text" name="pontuacao" id="pontuacao" [(ngModel)]="grupo.crit3.ponto" class="form-control" placeholder="Pontuacao" aria-describedby="helpId">
-              </div>
-          </div>
-        
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary" (click)="save()">Salvar mudanças</button>
-        </div>
-      </div>
-    </div>
-  </div>

@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
-
-import { map } from 'rxjs/operators';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Grupo, Liga } from 'src/app/interfaces/response-body.interface';
+import { GrupoDataSource } from './grupo-data.source';
+import { MatPaginator, MatBottomSheet, MatDialog } from '@angular/material';
+import { LigaService } from 'src/app/services/liga.service';
+import { MsgService } from 'src/app/core/msg.service';
+import { LigasDataSource } from 'src/app/administrador/cad-ligas/ligas-data.source';
+import { tap } from 'rxjs/operators';
+import { LigaModalComponent } from 'src/app/administrador/cad-ligas/modal/liga-modal.component';
+import { BottonButtonComponent } from 'src/app/administrador/cad-ligas/bottom/bottom-button.component';
+import { GrupoService } from 'src/app/services/grupo-service.service';
 
 @Component({
   selector: 'app-grupo',
@@ -10,87 +16,82 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./grupo.component.css']
 })
 export class GrupoComponent implements OnInit {
+  nome:string;
 
- 
-  aposta : any = {};
+  liga = {} as Grupo;
 
-  itemRefLigas: AngularFireList<any>;
+  displayedColumns: string[] = ['nome', 'tipoLiga' , 'qtdRodadas','id'];
 
-  itemRefGrupos: AngularFireList<any>;
-
-
-  ligas: Observable<any[]>;
-
-  grupos: Observable<any[]>;
+  dataSource: GrupoDataSource;
 
 
-  itemsLigas: Observable<any[]>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(
+        private bottomSheet: MatBottomSheet,
+        private service:GrupoService,
+        private msgService:MsgService,
+        public dialog: MatDialog,
+
+  ){}
 
 
-  grupo : any = {
-    crit1 : {},
-    crit2 : {},
-    crit3 : {},
-    userGestor : {
-      nome : "ROBSON"
-    }
+  ngOnInit(): void {
+    this.dataSource = new GrupoDataSource(this.service);
+    this.dataSource.loadList();
+  }
 
-  };
+
+  ngAfterViewInit() {
+    this.paginator.page
+        .pipe(
+            tap(() => this.loadLigaPage())
+        )
+        .subscribe();
+  } 
+
+  loadLigaPage() {
+    this.dataSource.loadList(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      this.nome);
+  }
+
+
+
+  openModal(tipoCrud:String,liga:Liga) : void{
+    console.log("abre modal liga");
+    if(!tipoCrud)
+      tipoCrud = "Nova";
+    const dialogRef = this.dialog.open(LigaModalComponent, {
+      width: '500px',
+      data: {action: tipoCrud, obj: liga}
+
+    });
+
+    dialogRef.afterClosed().subscribe((liga: Liga)  => {
+      console.log('The dialog was closed');
+    //   this.animal = result;
+        console.log(liga);
+        if(!!liga){
+          this.loadLigaPage();
+          this.msgService.open("Nova Liga  ! : " , liga.nome)
+        }
+    });
+  }
+
   
-  liga : any = {};
-
-  constructor(db: AngularFireDatabase) {
-    this.itemRefLigas = db.list('ligas');
-    this.itemRefGrupos = db.list('grupos');
-
-    
-    this.ligas =  this.itemRefLigas.snapshotChanges().pipe(
-      map(changes => 
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
+  openMenu(liga:Liga): void {
+    this.bottomSheet.open(BottonButtonComponent).afterDismissed().subscribe(
+      sucess => {
+        if(!!sucess)
+          this.openModal(sucess,liga);
+        else
+          console.log("Fechou sem resultados ...");  
+      }
     );
-
-    this.grupos =  this.itemRefGrupos.snapshotChanges().pipe(
-      map(changes => 
-        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
-      )
-    );
+    console.log("ACESSOU SUB MENU");
   }
 
-  ngOnInit() {
-  }
-
-  showCriteriaCollapse = function(){
-    console.log("collapse")
-    
-}
-
-
-  abreModal = function (edit : string, object : any) {
-    
-    if(edit != 'new')
-      this.aposta = object;
-    else
-      this.aposta = {};
-
-  };
-
-
-  save() {
-    console.log("ligas") //s
-    // console.log(this.itemsCollection)
-
-    const task =  this.itemRefGrupos.push(this.grupo);
-    task.then((value) => {
-      //SUCCESS
-      console.log(value);
-    }, (error) => {
-        console.log(error);
-    })
-  }
-
-  deleteItem(key: string) {
-    this.itemRefGrupos.remove(key);
-  }
 
 }
