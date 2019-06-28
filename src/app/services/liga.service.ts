@@ -10,12 +10,19 @@ export class LigaService {
     private request: RequestService
   ){}
   
-  list(page:number) {
-    return this.request.get('/liga/list?page='+page);
+  list(page:number,size:number,nome:string) {
+    // nome
+    // pagina
+    // size
+    return this.request.get('/liga/list?page='+page+'&size='+size+'&nome='+nome);
   }
 
   create(liga: Liga){
     return this.request.post('/liga/create', liga);
+  }
+
+  delete(liga: Liga){
+    return this.request.post('/liga/delete', liga);
   }
 
 }

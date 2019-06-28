@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>{{data.action}} User </h1>
+
+<div mat-dialog-content>
+
+  <form class="modal-form" [formGroup]="userForm"  (submit)="confirmar()" >
+      <mat-form-field class="modal-full-width">
+        <input type="text" matInput [(ngModel)]="user.nome" name="nome"  placeholder="Nome" formControlName="nome">
+      </mat-form-field>
+      <mat-form-field class="modal-full-width">
+        <input type="text" matInput [(ngModel)]="user.email" name="email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="modal-full-width">
+          <input type="text" matInput [(ngModel)]="user.provider" name="provider"   formControlName="fprovider" required>
+      </mat-form-field>
+      <div class="d-flex align-items-center">
+        <h1>
+          <i class="fa fa-lock" *ngIf="!user.permissaoAdmin" aria-hidden="true"></i>
+          <i class="fa fa-unlock-alt" *ngIf="user.permissaoAdmin" aria-hidden="true"></i>
+        </h1>
+      </div>
+      
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent">Confirmar</button>
+    <span class="spacer"></span>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()" color="warn">Cancelar</button>
+
+</div>

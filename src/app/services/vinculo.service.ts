@@ -12,13 +12,22 @@ export class VinculoService {
     private request: RequestService
     ) { }
 
-  list() {
-    return this.request.get('/user/list');
+  list(page:number,size:number,nome:string) {
+    return this.request.get('/user/list?page='+page+'&size='+size+'&nome='+nome);
   }
 
   criarVinculo(vinculo: any){
     return this.request.post('/user/create', vinculo);
   }
+
+  desvincular(vinculo: any){
+    return this.request.post('/user/delete', vinculo);
+  }
+
+  bloquear(vinculo: any){
+    return this.request.post('/user/bloquear', vinculo);
+  }
+
 
   getUserByAuthID(uid:string){
     return this.request.post('/user/getUserByEmail', uid);

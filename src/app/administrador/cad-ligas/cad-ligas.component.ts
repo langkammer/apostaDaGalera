@@ -1,6 +1,6 @@
-import { MatPaginator } from '@angular/material/paginator';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatBottomSheet, MatDialog } from '@angular/material';
+import { MatPaginator } from "@angular/material/paginator";
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {  MatBottomSheet, MatDialog } from '@angular/material';
 
 
 import { Liga } from 'src/app/interfaces/response-body.interface';
@@ -8,26 +8,26 @@ import { BottonButtonComponent } from './bottom/bottom-button.component';
 import { MsgService } from 'src/app/core/msg.service';
 import { LigaService } from 'src/app/services/liga.service';
 import { LigaModalComponent } from './modal/liga-modal.component';
+import { LigasDataSource } from './ligas-data.source';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'app-cad-ligas',
   templateUrl: './cad-ligas.component.html',
   styleUrls: ['./cad-ligas.component.css']
 })
-export class CadLigasComponent implements OnInit {
+export class CadLigasComponent implements OnInit,AfterViewInit {
 
-  ligas : Liga[] =  [];
-
+  nome:string;
 
   liga = {} as Liga;
 
-
   displayedColumns: string[] = ['nome', 'tipoLiga' , 'qtdRodadas','id'];
-  dataSource = new MatTableDataSource<Liga>(this.ligas);
+
+  dataSource: LigasDataSource;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-
 
   constructor(
         private bottomSheet: MatBottomSheet,
@@ -37,26 +37,29 @@ export class CadLigasComponent implements OnInit {
 
   ){}
 
+
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.list(1);
+    this.dataSource = new LigasDataSource(this.service);
+    this.dataSource.loadLigas();
   }
 
-  list(page:number){
-    this.service.list(page).subscribe(
-      sucesso =>{
-        console.log("RES ", sucesso);
-        if(sucesso.status == "SUCESSO")
-          this.populaDataTable(sucesso.data);
-        else
-          this.msgService.open(sucesso.status , sucesso.menssage);
-      },
-      error =>{
-        this.msgService.open("ERROR : => ", error);
 
-      }
-    )
+  ngAfterViewInit() {
+    this.paginator.page
+        .pipe(
+            tap(() => this.loadLigaPage())
+        )
+        .subscribe();
+  } 
+
+  loadLigaPage() {
+    this.dataSource.loadLigas(
+      this.paginator.pageIndex,
+      this.paginator.pageSize,
+      this.nome);
   }
+
+
 
   openModal(tipoCrud:String,liga:Liga) : void{
     console.log("abre modal liga");
@@ -64,7 +67,7 @@ export class CadLigasComponent implements OnInit {
       tipoCrud = "Nova";
     const dialogRef = this.dialog.open(LigaModalComponent, {
       width: '500px',
-      data: {action: tipoCrud, liga: this.liga}
+      data: {action: tipoCrud, obj: liga}
 
     });
 
@@ -73,20 +76,18 @@ export class CadLigasComponent implements OnInit {
     //   this.animal = result;
         console.log(liga);
         if(!!liga){
+          this.loadLigaPage();
           this.msgService.open("Nova Liga  ! : " , liga.nome)
         }
     });
   }
 
-  populaDataTable(ligas:Liga[]){
-    this.dataSource = new MatTableDataSource<Liga>(this.ligas);
-  }
   
-  openMenu(): void {
+  openMenu(liga:Liga): void {
     this.bottomSheet.open(BottonButtonComponent).afterDismissed().subscribe(
       sucess => {
         if(!!sucess)
-          console.log("fecou modal ", sucess);
+          this.openModal(sucess,liga);
         else
           console.log("Fechou sem resultados ...");  
       }

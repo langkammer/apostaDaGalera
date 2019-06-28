@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+    height: 100%;
+
+}
+
+.full-width {
+width: 100%;
+}
+
+.column-right{
+    text-align: right;
+}

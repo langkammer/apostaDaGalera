@@ -4,6 +4,14 @@ export interface ResponseBodyInterface{
     data:any;
 }
 
+export interface ResponseBodyListInterface{
+    status:string;
+    menssage:string;
+    data:any;
+    totalElements:number;
+    totalPages:number;
+}
+
 export interface User{
     id:number;
     nome:string;
@@ -45,4 +53,9 @@ export interface Criterio{
     id:number;
     tipoCriterioEnum:string;
     ponto:number;
+}
+
+export interface MatDataDialogInterface {
+    action:string; 
+    obj:any;
 }
