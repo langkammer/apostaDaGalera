@@ -7,15 +7,23 @@ import { BlockUIModule } from 'ng-block-ui';
 
 import { NavBarComponent } from './nav.component';
 import { AppRoutingModule } from '../app-routing-module';
+import { MyMaterialModule } from '../material-module';
+import { HeaderComponent } from './header/header.component';
+import { LeftMenuComponent } from './left-menu/left-menu.component';
 
 @NgModule({
-    declarations: [NavBarComponent],
+    declarations: [
+        NavBarComponent,
+        HeaderComponent,
+        LeftMenuComponent
+    ],
     imports: [ 
         CommonModule,
         FormsModule ,
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        MyMaterialModule,
         BlockUIModule.forRoot()
      ]
 })

@@ -2,13 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Grupo, Liga } from 'src/app/interfaces/response-body.interface';
 import { GrupoDataSource } from './grupo-data.source';
 import { MatPaginator, MatBottomSheet, MatDialog } from '@angular/material';
-import { LigaService } from 'src/app/services/liga.service';
 import { MsgService } from 'src/app/core/msg.service';
-import { LigasDataSource } from 'src/app/administrador/cad-ligas/ligas-data.source';
 import { tap } from 'rxjs/operators';
-import { LigaModalComponent } from 'src/app/administrador/cad-ligas/modal/liga-modal.component';
-import { BottonButtonComponent } from 'src/app/administrador/cad-ligas/bottom/bottom-button.component';
-import { GrupoService } from 'src/app/services/grupo-service.service';
+import { GrupoService } from 'src/app/services/grupo.service';
+import { BottonButtonGrupoComponent } from './bottom/bottom-button.component';
+import { GrupoModalComponent } from './modal/grupo-modal.component';
 
 @Component({
   selector: 'app-grupo',
@@ -20,7 +18,7 @@ export class GrupoComponent implements OnInit {
 
   liga = {} as Grupo;
 
-  displayedColumns: string[] = ['nome', 'tipoLiga' , 'qtdRodadas','id'];
+  displayedColumns: string[] = ['nome', 'ligaNome' ,'id'];
 
   dataSource: GrupoDataSource;
 
@@ -63,8 +61,8 @@ export class GrupoComponent implements OnInit {
     console.log("abre modal liga");
     if(!tipoCrud)
       tipoCrud = "Nova";
-    const dialogRef = this.dialog.open(LigaModalComponent, {
-      width: '500px',
+    const dialogRef = this.dialog.open(GrupoModalComponent, {
+      width: '600px',
       data: {action: tipoCrud, obj: liga}
 
     });
@@ -75,14 +73,14 @@ export class GrupoComponent implements OnInit {
         console.log(liga);
         if(!!liga){
           this.loadLigaPage();
-          this.msgService.open("Nova Liga  ! : " , liga.nome)
+          this.msgService.open("Nova Liga  ! : " , liga.tipoLiga)
         }
     });
   }
 
   
   openMenu(liga:Liga): void {
-    this.bottomSheet.open(BottonButtonComponent).afterDismissed().subscribe(
+    this.bottomSheet.open(BottonButtonGrupoComponent).afterDismissed().subscribe(
       sucess => {
         if(!!sucess)
           this.openModal(sucess,liga);

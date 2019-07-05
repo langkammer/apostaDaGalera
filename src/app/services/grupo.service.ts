@@ -15,7 +15,7 @@ export class GrupoService {
     // nome
     // pagina
     // size
-    return this.request.get('/liga/list?page='+page+'&size='+size+'&nome='+nome);
+    return this.request.get('/grupo/list?page='+page+'&size='+size+'&nome='+nome);
   }
 
 

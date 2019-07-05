@@ -28,6 +28,16 @@ export class RequestService {
     );
   }
 
+  getOtherApi(service)  : Observable<ResponseBodyInterface>  {
+    this.blockUI.start(this.load)
+    return this.http.get<ResponseBodyInterface>(service)
+    .pipe(
+      finalize(() => {
+        console.log('Finalizado ...');
+        this.blockUI.stop();
+      })
+    );
+  }
 
   post(service: string,data: any) : Observable<ResponseBodyInterface> {
     this.blockUI.start(this.load)

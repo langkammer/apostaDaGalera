@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlockUIModule } from "ng-block-ui";
 import { RouterModule } from "@angular/router";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { LoginModule } from "./login/login.module";
@@ -19,6 +20,7 @@ import { environment } from "src/environments/environment";
 import { FirebaseModuleImports } from "./firebase/firebase.mdule";
 import { MyMaterialModule } from "./material-module";
 import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
+import { SidenavService } from "./services/sidenav.service";
 
 
 
@@ -35,8 +37,8 @@ import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
     PrincipalModule,
     BlockUIModule.forRoot(),
     FirebaseModuleImports,
-    VMessageModule
-
+    VMessageModule,
+    FlexLayoutModule
     
 
   ],
@@ -47,7 +49,7 @@ import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
     VMessageModule,
     FirebaseModuleImports
   ],
-  providers: [],
+  providers: [SidenavService],
   bootstrap: [NavBarComponent],
   declarations: [FormularioGrupoComponent]
 })

@@ -2,6 +2,24 @@
 <block-ui>
   <span class="sr-only">Carregando...</span>
 </block-ui>
+<div>
+  <app-header [sidenav]="leftSidenav"></app-header>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #leftSidenav mode="side" opened>
+      <app-left-menu></app-left-menu>
+    </mat-sidenav>
+    <mat-sidenav-content [@onMainContentChange]="onSideNavChange ? 'open': 'close'">
+      <div class="main_content">
+        <div style="padding: 20px">
+          Your content
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
+<!-- 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="home">
         <span class="badge badge-primary">Aposta da Galera</span>
@@ -76,7 +94,7 @@
           </li>
         </ul>
     </div>
-  </nav>
+  </nav> -->
 
 <div class="container">
   <router-outlet></router-outlet>

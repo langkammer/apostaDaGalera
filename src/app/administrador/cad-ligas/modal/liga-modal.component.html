@@ -1,37 +1,47 @@
 <h1 mat-dialog-title>{{data.action}} Liga </h1>
 
 <div mat-dialog-content>
-
   <form class="modal-form" [formGroup]="ligaForm"  (submit)="confirmar()" >
-      <mat-form-field class="modal-full-width">
-        <input type="text" matInput [(ngModel)]="liga.nome" name="nome"  placeholder="Nome" formControlName="nome"  required>
-      </mat-form-field>
-      <app-vmessage
-            *ngIf="ligaForm.get('nome').errors?.required"
-            text="Nome da Liga é Obrigatorio!">
-      </app-vmessage>      
-      <mat-form-field class="modal-full-width">
-        <input type="text" matInput [(ngModel)]="liga.logoLigatring" name="logoLigatring"  placeholder="Url Img Liga" formControlName="logoLigatring" required>
-      </mat-form-field>
-      <app-vmessage
-        *ngIf="ligaForm.get('logoLigatring').errors?.required"
-        text="Url Img da Liga é Obrigatorio!">
-      </app-vmessage>  
-      <mat-form-field class="modal-full-width">
-          <input type="number" matInput [(ngModel)]="liga.qtdRodadas" name="qtdRodadas"  placeholder="Quantidade de Rodadas" formControlName="qtdRodadas" required>
-      </mat-form-field>
-      <app-vmessage
-        *ngIf="ligaForm.get('qtdRodadas').errors?.required"
-        text="Quantidade de rodads da Liga é Obrigatorio!">
-      </app-vmessage>      
-      <mat-form-field class="modal-full-width">
-          <input type="text" matInput [(ngModel)]="liga.tipoLiga" name="tipoLiga"  placeholder="Tipo da Liga" formControlName="tipoLiga" required>
-      </mat-form-field>
-      <app-vmessage
-        *ngIf="ligaForm.get('tipoLiga').errors?.required"
-        text="Tipo da Liga é Obrigatorio!">
-      </app-vmessage>      
-      
+      <mat-grid-list cols="2" rowHeight="2:1" rowHeight="70px" gutterSize="15px">
+          <mat-grid-tile >
+              <mat-form-field class="modal-full-width">
+                  <mat-label>Liga</mat-label>
+                  <mat-select [(value)]="liga.tipoLiga" name="tipoLiga" formControlName="tipoLigaForm" (selectionChange)="consultaApi()">
+                      <mat-option value="BRASILEIRAO">BRASILEIRÃO</mat-option>
+                      <mat-option value="COPA_BRASIL">COPA DO BRASIL</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="ligaForm.get('tipoLigaForm').errors?.required">Tipo da Liga é Obrigatorio</mat-error>
+              </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="modal-full-width">
+                <input type="text" matInput [(ngModel)]="liga.edicao" name="edicao"  placeholder="Ano" formControlName="edicaoForm"  (change)="consultaApi()">
+                <mat-error *ngIf="ligaForm.get('edicaoForm').errors?.required">Ano da Liga é Obrigatorio</mat-error>
+              </mat-form-field>
+          </mat-grid-tile>
+      </mat-grid-list> 
+     
+      <mat-grid-list cols="2" rowHeight="2:1" rowHeight="100px" gutterSize="15px">
+          <mat-grid-tile >
+              <img *ngIf="liga.logoLigatring" [src]="liga.logoLigatring" class="logo">
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <mat-form-field class="modal-full-width">
+                <input type="text" matInput [(ngModel)]="liga.logoLigatring" name="logoLigatring"  placeholder="Url Img Liga" formControlName="logoLigaForm" required>
+                <mat-error *ngIf="ligaForm.get('logoLigaForm').errors?.required">Url Img da Liga é Obrigatorio</mat-error>
+              </mat-form-field>
+          </mat-grid-tile>
+      </mat-grid-list>
+      <span class="spacer"></span>
+      <h5>Times Dentro da Liga</h5>
+      <mat-list *ngIf="equipes">
+          <div  *ngFor="let t of equipes">
+              <mat-list-item>
+                  <img [src]="t.escudoPathString" width="25px" > => {{t.nomeAbrev}}
+              </mat-list-item>
+              <mat-divider></mat-divider>
+          </div>
+      </mat-list>
   </form>
 </div>
 <div mat-dialog-actions align="end">

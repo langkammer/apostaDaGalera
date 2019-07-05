@@ -22,7 +22,7 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
 
   liga = {} as Liga;
 
-  displayedColumns: string[] = ['nome', 'tipoLiga' , 'qtdRodadas','id'];
+  displayedColumns: string[] = ['edicao','tipoLiga' , 'qtdRodadas','id'];
 
   dataSource: LigasDataSource;
 
@@ -66,7 +66,7 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
     if(!tipoCrud)
       tipoCrud = "Nova";
     const dialogRef = this.dialog.open(LigaModalComponent, {
-      width: '500px',
+      width: '600px',
       data: {action: tipoCrud, obj: liga}
 
     });
@@ -77,7 +77,7 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
         console.log(liga);
         if(!!liga){
           this.loadLigaPage();
-          this.msgService.open("Nova Liga  ! : " , liga.nome)
+          this.msgService.open("Nova Liga  ! : " , liga.tipoLiga)
         }
     });
   }

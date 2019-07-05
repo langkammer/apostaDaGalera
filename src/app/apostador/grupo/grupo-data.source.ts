@@ -5,7 +5,7 @@ import { DataSource, CollectionViewer } from "@angular/cdk/collections";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { Observable, of } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
-import { GrupoService } from "src/app/services/grupo-service.service";
+import { GrupoService } from "src/app/services/grupo.service";
 
 export class GrupoDataSource implements DataSource<Grupo> {
 

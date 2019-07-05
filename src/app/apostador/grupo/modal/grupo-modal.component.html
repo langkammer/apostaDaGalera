@@ -1,0 +1,154 @@
+<h1 mat-dialog-title>{{data.action}} Grupo </h1>
+
+<div mat-dialog-content>
+    <!-- nome:string;
+     ligaModel:Liga;
+     descritivo:string;
+     criterioPrincipal:Criterio;
+     bonusPorTodosAcertosPrincipal:boolean;
+     criterioSecundario:Criterio;
+     criterioSecundarioAcumulaPrincipal:boolean;
+     bonusPorTodosAcertosSecundario:boolean; -->
+  <form class="modal-form" [formGroup]="form"  (submit)="confirmar()" >
+
+      <mat-accordion >
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Dados gerais
+              </mat-panel-title>
+              <mat-panel-description>
+                Informação Gerais Grupo
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          <mat-form-field class="modal-full-width">
+              <mat-label>Nome</mat-label>
+              <input type="text" matInput [(ngModel)]="grupo.nome" name="nome"  placeholder="Nome" formControlName="nomeForm" >
+              <mat-error *ngIf="form.get('nomeForm').errors?.required">Nome é Obrigatorio</mat-error>
+          </mat-form-field>
+         <mat-form-field class="modal-full-width">
+            <mat-label>Liga</mat-label>
+            <mat-select  [(value)]="grupo.ligaModel">
+              <mat-option *ngFor="let liga of ligas"  [(value)]="liga" name="ligaModel"   formControlName="ligaForm" ngDefaultControl>
+                <img [src]="liga.logoLigatring"  height="15px" width="15px">  {{liga.nome}}  
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('ligaForm').errors?.required">Liga é Obrigatorio</mat-error>
+         </mat-form-field>
+          <mat-form-field class="modal-full-width">
+              <mat-label>Descrição</mat-label>
+              <textarea matInput [(ngModel)]="grupo.descritivo" name="descritivo" rows="3" placeholder="Descrição" formControlName="descritivoForm"></textarea>
+              <mat-error *ngIf="form.get('descritivoForm').errors?.required">Descrição é Obrigatorio</mat-error>
+          </mat-form-field>
+         
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider> <h5>Times </h5> </mat-divider>
+      <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Times
+              </mat-panel-title>
+              <mat-panel-description>
+                Defina o principal critério de pontuação
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-grid-list cols="2" rowHeight="2:1" gutterSize="15px">
+                <mat-grid-tile >
+                  <mat-radio-group  class="modal-full-width" aria-label="Escolha um Critério"  [(ngModel)]="criterio1.tipoCriterioEnum"     name="criterioPrincipal"  formControlName="criterioPrincipalForm">
+                      <mat-radio-button  value="PLACAR">Resultado</mat-radio-button>
+                      <mat-radio-button  value="RESULTADO">Placar</mat-radio-button>
+                  </mat-radio-group> 
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="modal-full-width">
+                        <mat-label>Ponto</mat-label>
+                        <input type="number" matInput name="pontoCriterioPrincipal"  placeholder="Ponto" [(ngModel)]="criterio1.ponto" formControlName="pontoCriterioPrincipalForm">
+                    </mat-form-field>
+                </mat-grid-tile> 
+                
+            </mat-grid-list>  
+
+          
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider> </mat-divider>
+      <!-- criterios 1-->
+      <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                1º Criterio
+              </mat-panel-title>
+              <mat-panel-description>
+                Defina o principal critério de pontuação
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-grid-list cols="2" rowHeight="2:1" gutterSize="15px">
+                <mat-grid-tile >
+                  <mat-radio-group  class="modal-full-width" aria-label="Escolha um Critério"  [(ngModel)]="criterio1.tipoCriterioEnum"     name="criterioPrincipal"  formControlName="criterioPrincipalForm">
+                      <mat-radio-button  value="PLACAR">Resultado</mat-radio-button>
+                      <mat-radio-button  value="RESULTADO">Placar</mat-radio-button>
+                  </mat-radio-group> 
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="modal-full-width">
+                        <mat-label>Ponto</mat-label>
+                        <input type="number" matInput name="pontoCriterioPrincipal"  placeholder="Ponto" [(ngModel)]="criterio1.ponto" formControlName="pontoCriterioPrincipalForm">
+                    </mat-form-field>
+                </mat-grid-tile> 
+                
+            </mat-grid-list>  
+
+          
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-divider> </mat-divider>
+
+       <!-- criterios 2-->
+       <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                2º Criterio
+              </mat-panel-title>
+              <mat-panel-description>
+                Defina o principal critério de pontuação
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-grid-list cols="2" rowHeight="2:1" gutterSize="15px">
+                <mat-grid-tile >
+                    <mat-radio-group class="modal-full-width" aria-label="Escolha um Critério" [(ngModel)]="criterio2.tipoCriterioEnum" name="critFormPrincipal" formControlName="criterioSecundarioForm">
+                        <mat-radio-button value="PLACAR">Resultado</mat-radio-button>
+                        <mat-radio-button value="RESULTADO">Placar</mat-radio-button>
+                    </mat-radio-group>  
+                </mat-grid-tile> 
+                <mat-grid-tile >
+                    <mat-form-field class="modal-full-width">
+                        <mat-label>Ponto</mat-label>
+                        <input type="number" matInput name="pontoCriterioSecundario" [(ngModel)]="criterio2.ponto"  placeholder="Ponto"  formControlName="pontoCriterioSecundarioForm">
+                    </mat-form-field>
+                </mat-grid-tile>  
+            </mat-grid-list>  
+
+
+        </mat-expansion-panel>
+        
+      </mat-accordion>
+      
+      <mat-divider> </mat-divider>
+      <mat-checkbox name="bonusCriterioSecundario" [(ngModel)]="possuiBonus2" formControlName="bonusCriterioSecundarioForm">Bonificar Placar ao Acertar Todos</mat-checkbox>
+
+    
+      
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent">Confirmar</button>
+    <span class="spacer"></span>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()" color="warn">Cancelar</button>
+
+</div>

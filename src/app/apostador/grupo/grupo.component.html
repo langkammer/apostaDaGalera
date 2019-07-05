@@ -18,9 +18,14 @@
                 <input matInput placeholder="Buscar" [(ngModel)]="nome" (keyup.enter)="loadListPage()">
               </mat-form-field>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
               <button mat-raised-button color="accent" class="full-width" aria-label="Buscar" (click)="loadUserPage()">
                   Buscar <mat-icon>search</mat-icon>
+              </button>
+          </div>
+          <div class="col-md-3">
+              <button mat-raised-button color="primary" class="full-width" (click)="openModal('Nova',{})" aria-label="Novo">
+                  Novo <mat-icon>add</mat-icon>
               </button>
           </div>
 
@@ -39,28 +44,12 @@
               </ng-container>
               
               <!-- Liga -->
-              <ng-container matColumnDef="email">
+              <ng-container matColumnDef="ligaNome">
                 
-                <th mat-header-cell *matHeaderCellDef class="column-right" > Email </th>
-                <td mat-cell *matCellDef="let element" class="column-right" > {{element.email}} </td>
+                <th mat-header-cell *matHeaderCellDef  > Liga </th>
+                <td mat-cell *matCellDef="let element"  > {{element.ligaModel.nome}} </td>
               </ng-container>
           
-              <!-- Qtd Rodadas -->
-              <ng-container matColumnDef="provider">
-                  <th mat-header-cell *matHeaderCellDef class="column-right" > Tipo Login </th>
-                  <td mat-cell *matCellDef="let element" class="column-right" > {{element.provider}} </td>
-              </ng-container>
-
-
-              <!-- Qtd Rodadas -->
-              <ng-container matColumnDef="permissaoAdmin">
-                  <th mat-header-cell *matHeaderCellDef class="column-right" > Perfil </th>
-                  <td mat-cell *matCellDef="let element" class="column-right" >
-                     <i class="fa fa-lock" *ngIf="!element.permissaoAdmin" aria-hidden="true"></i>
-                     <i class="fa fa-unlock-alt" *ngIf="element.permissaoAdmin" aria-hidden="true"></i>
-                  </td>
-              </ng-container>
-
               <!-- Btn  -->
               <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef class="column-right" > Acao </th>

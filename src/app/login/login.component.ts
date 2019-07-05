@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  emailForm = "";
+  senhaForm = "";
+
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -111,14 +114,14 @@ export class LoginComponent implements OnInit {
       this.blockUI.start('Carregando  ...'); // Start blocking
       this.blockUI.stop();
 
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.senha).then(
+      this.afAuth.auth.signInWithEmailAndPassword(this.emailForm, this.senhaForm).then(
         function(suceso){
-            this.msgService.open("USUARIO EMAIL LOGADO : "+ suceso.user.email);
+            alert("USUARIO EMAIL LOGADO : "+ suceso.user.email)
         }
       )
       .catch(
         function(error){
-          this.msgService.open(error)
+          alert("ERROR =>" + error)
 
       });
   }

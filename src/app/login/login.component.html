@@ -8,14 +8,14 @@
               <h5 class="card-title text-center">Entrar</h5>
               <form class="form-signin" [formGroup]="loginForm"  (submit)="cadastrar()" >
                   <mat-form-field class="modal-full-width">
-                      <input type="email" matInput [(ngModel)]="email" name="email"  placeholder="Email" formControlName="email" required>
+                      <input type="email" matInput [(ngModel)]="emailForm" name="email"  placeholder="Email" formControlName="email" required>
                   </mat-form-field>
                   <app-vmessage
                     *ngIf="loginForm.get('email').errors?.required"
                     text="Nome de Usuario é Obrigatorio!">
                   </app-vmessage>      
                   <mat-form-field class="modal-full-width">
-                    <input type="password" matInput [(ngModel)]="senha" name="senha" placeholder="Senha"  formControlName="senha" required>
+                    <input type="password" matInput [(ngModel)]="senhaForm" name="senha" placeholder="Senha"  formControlName="senha" required>
                   </mat-form-field>
                   <app-vmessage
                     *ngIf="loginForm.get('senha').errors?.required"
@@ -23,7 +23,7 @@
                   </app-vmessage>  
               </form>
                   <p></p>  
-                  <button  mat-raised-button (click)="login()" style="width: 100%"  color="primary">Login</button>
+                  <button  mat-raised-button (click)="loginNormal()" style="width: 100%"  color="primary">Login</button>
                   <p></p>
                   <button  mat-raised-button (click)="abreCadastro()" style="width: 100%"  color="warn">Registrar-se</button>
                   <p></p>

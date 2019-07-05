@@ -59,7 +59,13 @@ export class LoginModalComponent implements OnInit {
     task.then((value) => {
       //SUCCESS
       console.log(value);
-      this.usuario.provider = value.credential.providerId;
+      if(!value.credential){
+        this.usuario.provider = "local"
+      }
+      else{
+        this.usuario.provider = value.credential.providerId;
+      }  
+
       this.criarVinculo(this.usuario);
     }, (error) => {
         console.log(error);
@@ -90,10 +96,14 @@ export class LoginModalComponent implements OnInit {
         .subscribe(
           response => {
             console.log("sucesso : " , response);
-            if(response.status == "SUCESSO")
+            this.blockUI.stop();
+            if(response.status == "SUCESSO"){
               this.usuario = response.data;
-            else
+              this.resetLogin();
+            }
+            else{
               this.msgService.open(response.status , response.menssage)
+            }
           }, error => {
                 console.log(error);
           }

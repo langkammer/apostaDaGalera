@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Registrar-se</h1>
 
 <div mat-dialog-content>
-  <form class="modal-form" [formGroup]="loginForm"  (submit)="cadastrar()" >
+  <form class="modal-form" [formGroup]="loginForm"  >
       <mat-form-field class="modal-full-width">
         <input type="text" matInput [(ngModel)]="usuario.nome" name="nome"  placeholder="Nome" formControlName="nome" required>
       </mat-form-field>

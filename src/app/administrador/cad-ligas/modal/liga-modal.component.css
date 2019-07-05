@@ -1,6 +1,6 @@
 .modal-form {
     min-width: 150px;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
   }
 
@@ -11,13 +11,16 @@
 .btn-meio-meio {
     width: 50%;
 }
-
-mat-grid-tile {
-  background: lightblue;
-}
- 
 .spacer {
   flex: 1 1 auto;
   padding-top: 10px;
   padding-bottom: 30px;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.logo{
+  width:100%;
+  max-width: 50px;
 }

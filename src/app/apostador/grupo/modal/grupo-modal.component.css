@@ -1,0 +1,45 @@
+.modal-form {
+    min-width: 200px;
+    max-width: 600px;
+    width: 100%;
+  }
+
+.modal-full-width {
+    width: 100%;
+}
+
+.modal-fift-width {
+  width: 50%;
+}
+
+.crt-fift1-width {
+  width: 55%;
+}
+
+.crt-fift3-width {
+  width: 35%;
+}
+
+.crt-fift2-width {
+  width: 10%;
+}
+
+
+.crt-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.crt-radio-button {
+  margin: 5px;
+}
+
+
+.btn-meio-meio {
+    width: 50%;
+}
+ 
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}

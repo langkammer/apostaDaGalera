@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { VinculoService } from '../services/vinculo.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseBodyInterface, User } from '../interfaces/response-body.interface';
+import { SidenavService } from '../services/sidenav.service';
 
 @Component({
   selector: 'app-root',
@@ -27,13 +28,21 @@ export class NavBarComponent implements OnInit {
 
   perfiUserRef: AngularFireList<any>;
 
+  public onSideNavChange: boolean;
+
+
   constructor(
     public afAuth: AngularFireAuth   ,
     db: AngularFireDatabase,
-    public vinculoService: VinculoService
+    public vinculoService: VinculoService,
+    private _sidenavService: SidenavService
     ) 
   {
     this.db = db;
+    this._sidenavService.sideNavState$.subscribe( res => {
+      console.log(res)
+      this.onSideNavChange = res;
+    })
 
   } 
 
