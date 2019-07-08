@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { SidenavService } from 'src/app/services/sidenav.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,10 @@ export class HeaderComponent implements OnInit {
 
   logado:boolean = false;
 
-  constructor(private _sidenavService: SidenavService) { }
+  constructor(
+    private _sidenavService: SidenavService,
+    public afAuth: AngularFireAuth   
+    ) { }
 
   ngOnInit() {
     this._sidenavService.getLogado().subscribe(
@@ -30,6 +34,6 @@ export class HeaderComponent implements OnInit {
 
   deslogar(){
     console.log("deslogar");
-    this._sidenavService.deslogar();
+    this.afAuth.auth.signOut();
   }
 }

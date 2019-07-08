@@ -57,17 +57,14 @@ export class NavBarComponent implements OnInit {
             console.log("logado : " , res.email)
             this.email = res.email;
             this.carregaDefinicoesPerfil(res.email);
+            this._sidenavService.logar();
         } else {
-          this.email = ''
+            this.email = ''
+            this._sidenavService.deslogar();
         }
       });
 
-    this._sidenavService.getLogado().subscribe(
-      (logado : boolean) =>{
-        if(!logado)
-          this.logout();
-      }
-    )
+   
   }
 
   logout() {
@@ -87,7 +84,6 @@ export class NavBarComponent implements OnInit {
             this.response = response;
             this.perfil   = this.response.data;
             this.isAdmin =  this.perfil.permissaoAdmin;
-            this._sidenavService.logar();
           }
 
         },

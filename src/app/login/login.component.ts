@@ -11,6 +11,7 @@ import { LoginModalComponent } from './modal/login-modal.component';
 import { MatDialog } from '@angular/material';
 import { User } from '../interfaces/response-body.interface';
 import { MsgService } from '../core/msg.service';
+import { SidenavService } from '../services/sidenav.service';
 
 
 @Component({
@@ -48,7 +49,8 @@ export class LoginComponent implements OnInit {
     private modalService: NgbModal,
     public dialog: MatDialog,
     public msgService : MsgService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _sidenavService:SidenavService
      ) 
   {
     this.perfiUserRef = db.list('perfilUsuarios');
@@ -64,11 +66,14 @@ export class LoginComponent implements OnInit {
       this.afAuth.authState.subscribe(res => {
           if (res && res.uid) {
               console.log("logado?" , res)
+              this._sidenavService.logar();
               this.email = res.email;
           } else {
             this.email = ''
+            this._sidenavService.deslogar();
           }
         });
+
   }
 
   geUser(email:string){
@@ -89,6 +94,7 @@ export class LoginComponent implements OnInit {
       task.then((value) => {
         //SUCCESS
         console.log(value);
+        this._sidenavService.logar();
       }, (error) => {
           console.log(error);
       })
@@ -128,6 +134,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
       console.log("deslogou")
+      this._sidenavService.deslogar();
       this.afAuth.auth.signOut();
   }
 
