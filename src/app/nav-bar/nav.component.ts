@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { map } from 'rxjs/operators';
 import { VinculoService } from '../services/vinculo.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseBodyInterface, User } from '../interfaces/response-body.interface';
+
 import { SidenavService } from '../services/sidenav.service';
+import { onMainContentChange } from '../animations/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
+  animations: [ onMainContentChange ]
+
 })
 export class NavBarComponent implements OnInit {
 
@@ -44,6 +47,8 @@ export class NavBarComponent implements OnInit {
       this.onSideNavChange = res;
     })
 
+  
+
   } 
 
   ngOnInit(): void {
@@ -56,6 +61,13 @@ export class NavBarComponent implements OnInit {
           this.email = ''
         }
       });
+
+    this._sidenavService.getLogado().subscribe(
+      (logado : boolean) =>{
+        if(!logado)
+          this.logout();
+      }
+    )
   }
 
   logout() {
@@ -70,11 +82,12 @@ export class NavBarComponent implements OnInit {
     this.vinculoService
     .getUserByEmail(email)
     .subscribe(
-        response => {
-          if(response){
+        (response:ResponseBodyInterface) => {
+          if(response.data){
             this.response = response;
             this.perfil   = this.response.data;
             this.isAdmin =  this.perfil.permissaoAdmin;
+            this._sidenavService.logar();
           }
 
         },

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSidenav } from '@angular/material';
+import { SidenavService } from 'src/app/services/sidenav.service';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,25 @@ export class HeaderComponent implements OnInit {
 
   @Input() sidenav: MatSidenav
 
-  constructor() { }
+  logado:boolean = false;
+
+  constructor(private _sidenavService: SidenavService) { }
 
   ngOnInit() {
+    this._sidenavService.getLogado().subscribe(
+      (logado : boolean) =>{
+        if(!logado){
+          this.logado = false;
+        }
+        else{
+          this.logado = true; 
+        }
+      }
+    )
   }
 
+  deslogar(){
+    console.log("deslogar");
+    this._sidenavService.deslogar();
+  }
 }
