@@ -43,3 +43,15 @@
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
+
+
+.check-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.check-margin {
+  margin: 0 10px;
+}

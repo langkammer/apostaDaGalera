@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatDataDialogInterface, Grupo ,Liga, Criterio} from 'src/app/interfaces/response-body.interface';
 import { MsgService } from 'src/app/core/msg.service';
@@ -7,6 +7,7 @@ import { MatPaginator} from '@angular/material/paginator';
 import { MatSort} from '@angular/material/sort';
 import { GrupoService } from 'src/app/services/grupo.service';
 import { LigaService } from 'src/app/services/liga.service';
+import * as _ from "lodash"
 
 @Component({
     selector: 'app-grupo-modal-modal',
@@ -63,20 +64,25 @@ export class GrupoModalComponent implements OnInit {
       criterioSecundarioForm : ['', Validators.required],
       pontoCriterioPrincipalForm : ['', Validators.required],
       pontoCriterioSecundarioForm : ['', Validators.required],
-      bonusCriterioPrincipalForm : [false],
-      bonusCriterioSecundarioForm : [false]
+      times: this.formBuilder.array([]),
+      bonusPrincipalForm : [false],
+      bonusSecundarioForm : [false],
+      pontobonusPrincipalForm : [''],
+      pontobonusSecundarioForm : ['']
+
 
     })
 
     console.log("INI MODAL LIGAS ...")
 
     this.grupo = this.data.obj;
-    console.log("LIGA : " , this.data.obj);
+    console.log("GRUPO : " , this.data.obj);
 
     if(this.data.action  == "Ver" || this.data.action == "Deletar"){ 
       this.form.disable();
     }
 
+    this.grupo.times = [];
   }  
 
  
@@ -117,8 +123,6 @@ export class GrupoModalComponent implements OnInit {
     //montar grupo model
     this.grupo.criterioPrincipal = this.criterio1;
     this.grupo.criterioSecundario = this.criterio2;
-    this.grupo.bonusPorTodosAcertosPrincipal = this.possuiBonus1;
-    this.grupo.bonusPorTodosAcertosSecundario = this.possuiBonus2;
     console.log("GRUPO A SALVAR => " , this.grupo);
     this.service.create(this.grupo).subscribe(
       sucesso =>{
@@ -154,5 +158,25 @@ export class GrupoModalComponent implements OnInit {
   resetLogin(){
     // this.dialogRef.close(this.grupo);
   } 
+
+
+  changeEquipes(event) {
+    const times = <FormArray>this.form.get('times') as FormArray;
+
+    if(event.checked) {
+      times.push(new FormControl(event.source.value))
+
+      this.grupo.times.push(event.source.value);
+
+    } else {
+      const i = times.controls.findIndex(x => x.value === event.source.value);
+      
+      _.remove(this.grupo.times, { sigla : event.source.value.sigla});
+
+      times.removeAt(i);
+    }
+
+
+  }
 
 }

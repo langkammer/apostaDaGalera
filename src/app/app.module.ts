@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BlockUIModule } from "ng-block-ui";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChecklistModule } from 'angular-checklist';
 
 
 import { LoginModule } from "./login/login.module";
@@ -38,6 +39,7 @@ import { SidenavService } from "./services/sidenav.service";
     BlockUIModule.forRoot(),
     FirebaseModuleImports,
     VMessageModule,
+    ChecklistModule,
     FlexLayoutModule
     
 
@@ -47,7 +49,8 @@ import { SidenavService } from "./services/sidenav.service";
     LoginModule,
     MyMaterialModule,
     VMessageModule,
-    FirebaseModuleImports
+    FirebaseModuleImports,
+    ChecklistModule
   ],
   providers: [SidenavService],
   bootstrap: [NavBarComponent],

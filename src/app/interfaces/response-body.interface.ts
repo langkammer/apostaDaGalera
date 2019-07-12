@@ -31,25 +31,57 @@ export interface UserFirebase{
 
 export interface Grupo{
     id:number;
+    vinculosModel:Vinculo;
     nome:string;
     ligaModel:Liga;
     descritivo:string;
     criterioPrincipal:Criterio;
-    bonusPorTodosAcertosPrincipal:boolean;
     criterioSecundario:Criterio;
-    criterioSecundarioAcumulaPrincipal:boolean;
-    bonusPorTodosAcertosSecundario:boolean;
+    times:Equipe[];
 }
-
+export interface Vinculo {
+    id:number;
+    nome:string;
+    email:string;
+    authId:string;
+    provider:string;
+    permissaoAdmin:boolean;
+}
 export interface Liga {
     id:number;
     logoLigatring:string;
     qtdRodadas:number;
+    rodadaAtual:number;
     tipoLiga:string;
     formatoLiga:string;
     status:boolean;
     edicao:string;
-    equipes:Equipe[];
+    times:Equipe[];
+    rodadas:Rodada[];
+   
+}
+
+export interface Rodada {
+    id:number;
+    rodada:number;
+    dataAbertura:string;
+    horaAbertura:string;
+    partidas:Partida[];
+}
+
+export interface Partida{
+    id:number;
+    ligaModel:Liga;
+    rodada:number;
+    time1:Equipe;
+    time2:Equipe;
+    data:string;
+    horario:string;
+    estadio:string;
+    local:string;
+    placar1:number;
+    placar2:number;
+
 }
 
 export interface Criterio{
@@ -71,4 +103,11 @@ export interface Equipe{
     escudoPathString: string;
     sigla: string;
     url: string;
+}
+
+export interface MembroGrupo{
+    id:number;
+    vinculo:Vinculo;
+    grupo:Grupo;
+    dataEntrada:string;
 }

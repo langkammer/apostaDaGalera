@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { Liga, MatDataDialogInterface, Equipe } from 'src/app/interfaces/response-body.interface';
+import { Liga, MatDataDialogInterface, Equipe, Partida, Rodada } from 'src/app/interfaces/response-body.interface';
 import { MsgService } from 'src/app/core/msg.service';
 import { LigaService } from 'src/app/services/liga.service';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort} from '@angular/material/sort';
 import * as _ from "lodash"
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'app-login-modal',
@@ -22,14 +23,26 @@ export class LigaModalComponent implements OnInit {
     public msgService : MsgService,
     private formBuilder: FormBuilder) {}
 
-
+  
+    
+  apiOk : boolean = false;  
 
   liga = {} as Liga;
   equipe = {} as Equipe;
+  partida = {} as Partida;
+  rodada = {} as Rodada;
 
   ligaForm: FormGroup;
 
   equipes: Equipe[] = [];
+
+  partidas: Partida[] = [];
+
+  rodadas: Rodada[] = [];
+
+  
+  @BlockUI() blockUI: NgBlockUI;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -60,9 +73,15 @@ export class LigaModalComponent implements OnInit {
         .subscribe((res:any) =>{
           // this.equipe.
           let equipes = _.map(res.equipes);
+          let partidas = res.fases[res.agrupamento[0].fases[0].id].jogos;
+          let rodada = res.fases[res.agrupamento[0].fases[0].id].rodada;
+          this.liga.rodadaAtual = rodada.atual;
+          this.liga.qtdRodadas = rodada.total;
+          this.extrairPartidas(partidas,equipes);
           this.extrairTimes(equipes);
+          this.apiOk = true;
         },err =>{
-
+            alert("Erro ao consultar api")
         })
       }
       else if(this.liga.tipoLiga == 'COPA_BRASIL'){
@@ -75,8 +94,8 @@ export class LigaModalComponent implements OnInit {
   extrairTimes(equipes){
     var equipesLocal = [];
     
+    this.blockUI.start("Extraindo Times") // Start blocking
     _.forEach(equipes, function(value) {
-      console.log(value);
       let equipeLocal = {
         nomeAbrev : value.sigla,
         nomeCompleto : value.nome,
@@ -87,9 +106,86 @@ export class LigaModalComponent implements OnInit {
       equipesLocal.push(equipeLocal);
     });
     this.equipes = equipesLocal;
-    console.log(this.equipes);
+    this.blockUI.stop();
 
   }
+
+  extrairPartidas(jogos,times){
+    this.blockUI.start("Extraindo Partidas") // Start blocking
+
+    var partidasLocal = [];
+
+    var rodadasLocal = [];
+
+    var times = times;
+
+    var rodadas = jogos.rodada;
+
+    var partidas = jogos.id;
+
+
+    _.forEach(rodadas, function(patidaN,key) {
+
+      _.forEach(patidaN,function(value){
+        
+        let p = partidas[value];
+        if(p){
+          let timConsulta = _.find(times, {id : p.time1});
+
+          let time1 = {
+              nomeAbrev :        timConsulta.sigla,
+              nomeCompleto :     timConsulta.nome,
+              sigla :            timConsulta.sigla,
+              escudoPathString : timConsulta.brasao
+          };
+    
+          let timConsulta2 = _.find(times, {id : p.time2});
+    
+          let time2 = {
+              nomeAbrev :        timConsulta2.sigla,
+              nomeCompleto :     timConsulta2.nome,
+              sigla :            timConsulta2.sigla,
+              escudoPathString : timConsulta2.brasao
+          };
+    
+          let partidaLocal = {
+            rodada   : p.rodada,
+            time1    : time1,
+            time2    : time2,
+            data     : p.data,
+            horario  : p.horario,
+            estadio  : p.estadio,
+            local    : p.local,
+            placar1  : p.placar1,
+            placar2  : p.placar2,
+    
+          }; 
+          partidasLocal.push(partidaLocal);
+
+        }
+       
+
+      });
+
+      
+   
+
+      let rodada = {
+        rodada : key,
+        dataAbertura: "",
+        horaAbertura: "",
+        partidas:partidasLocal
+      }
+      partidasLocal = [];
+      rodadasLocal.push(rodada);
+
+    });
+    this.rodadas = rodadasLocal;
+    console.log(this.rodadas);
+    this.blockUI.stop();
+
+  }
+
 
   cancelar(): void {
     this.dialogRef.close();
@@ -125,20 +221,27 @@ export class LigaModalComponent implements OnInit {
 
 
   salvar(): void{
-    this.liga.equipes = this.equipes;
-    this.service.create(this.liga).subscribe(
-      sucesso =>{
-        console.log("RES ", sucesso);
-        if(sucesso.status == "SUCESSO")
-          this.resetLogin();
-        else
-          this.msgService.open(sucesso.status , sucesso.menssage);
-      },
-      error =>{
-        this.msgService.open("ERROR : => ", error.message);
-
-      }
-    )
+    this.liga.times = this.equipes;
+    this.liga.rodadas = this.rodadas;
+    if(this.apiOk){
+      this.service.create(this.liga).subscribe(
+        sucesso =>{
+          console.log("RES ", sucesso);
+          if(sucesso.status == "SUCESSO")
+            this.resetLogin();
+          else
+            this.msgService.open(sucesso.status , sucesso.menssage);
+        },
+        error =>{
+          this.msgService.open("ERROR : => ", error.message);
+  
+        }
+      )
+    }
+    else{
+      alert("ATENÇÃO VOCÊ SERÁ DIRECIONANDO PARA CRIAÇÃO MANUAL DA LIGA");
+    }
+   
   }
 
   getBrasileirao(){
@@ -149,6 +252,7 @@ export class LigaModalComponent implements OnInit {
       },
       error =>{
         console.log(error);
+        alert("Atenção Não foi possivel comunicar com Api do UOL, você será direcionado para central de criação de ligas")
       }
     )
   }

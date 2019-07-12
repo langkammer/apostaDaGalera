@@ -30,7 +30,7 @@ const routes: Routes = [
         component : GrupoComponent
     },
     {
-        path : 'apostador/grupos/:key/convite',
+        path : 'apostador/grupos/convite/:id',
         component : ConviteComponent
     },
     {
@@ -46,15 +46,15 @@ const routes: Routes = [
         component : ApostaComponent
     },
     {
-        path: 'apostador/grupoByAposta/:key',
+        path: 'apostador/grupoByAposta/:id',
         component : MembrosGrupoComponent
     },
     {
-        path : 'apostador/apostas/key/apostaCampeonatoBrasileiro',
+        path : 'apostador/apostas/apostaCampeonatoBrasileiro/:id/:rodada',
         component : ApostaByGrupoCampeonatoBrasileiroComponent
     },
     {
-        path : 'apostador/apostas/key/apostaCopaDoBrasil',
+        path : 'apostador/apostas/apostaCopaDoBrasil/:id',
         component : ApostaByGrupoCopaBrasilComponent
     },
     {

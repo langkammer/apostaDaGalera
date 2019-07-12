@@ -3,7 +3,7 @@
 <div *ngIf="!userLogado">
     <div class="container">
         <h2>
-            Ola! 
+            Ola!  
         </h2>
         <h4>
             Você recebeu um convite para um grupo de apostas,
@@ -19,7 +19,7 @@
       
       </p>
       <p>
-          Regras :  {{grupo.descrit}}
+          Descrição :  {{grupo.descritivo}}
       </p>
       <p>
           Critério das Regras : 
@@ -29,27 +29,46 @@
               <tr>
                   <th>Tipo do Critério</th>
                   <th>Pontos</th>
+                  <th>Bonifica Resultado </th>
+                  <th>Ponto Bonus</th>
               </tr>
           </thead>
           <tbody>
-                  <tr *ngIf="grupo.crit1">
-                      <td>{{grupo.crit1.tipo}}</td>
-                      <td>{{grupo.crit1.ponto}}</td>
-                      <td></td>
+                  <tr *ngIf="grupo.criterioPrincipal">
+                      <td>{{grupo.criterioPrincipal.tipoCriterioEnum}}</td>
+                      <td>{{grupo.criterioPrincipal.ponto}}</td>
+                      <td> 
+                        <p *ngIf="grupo.criterioPrincipal.bonifica">
+                         Sim  
+                        </p>
+                        <p *ngIf="!grupo.criterioPrincipal.bonifica">
+                         Não  
+                        </p>
+                      </td>
+                      <td>
+                            {{grupo.criterioPrincipal.pontoBonus}}
+                      </td>
                   </tr>
-                  <tr *ngIf="grupo.crit2">
-                      <td>{{grupo.crit2.tipo}}</td>
-                      <td>{{grupo.crit2.ponto}}</td>
-                  </tr>
-                  <tr *ngIf="grupo.crit3">
-                      <td>{{grupo.crit3.tipo}}</td>
-                      <td>{{grupo.crit3.ponto}}</td>
-                  </tr>
-              </tbody>
+                  <tr *ngIf="grupo.criterioSecundario">
+                        <td>{{grupo.criterioSecundario.tipoCriterioEnum}}</td>
+                        <td>{{grupo.criterioSecundario.ponto}}</td>
+                        <td> 
+                          <p *ngIf="grupo.criterioSecundario.bonifica">
+                           Sim  
+                          </p>
+                          <p *ngIf="!grupo.criterioSecundario.bonifica">
+                           Não  
+                          </p>
+                        </td>
+                        <td>
+                              {{grupo.criterioSecundario.pontoBonus}}
+                        </td>
+                    </tr>         
+          </tbody>
       </table>
       
       
-      <button type="button" class="btn btn-success">
+      <button type="button" class="btn btn-success" (click)="aceitarConvite()">
           Aceitar Convite <i class="fa fa-check" aria-hidden="true"></i>
       </button>
 </div>

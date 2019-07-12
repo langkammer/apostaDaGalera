@@ -30,7 +30,7 @@
             <mat-label>Liga</mat-label>
             <mat-select  [(value)]="grupo.ligaModel">
               <mat-option *ngFor="let liga of ligas"  [(value)]="liga" name="ligaModel"   formControlName="ligaForm" ngDefaultControl>
-                <img [src]="liga.logoLigatring"  height="15px" width="15px">  {{liga.nome}}  
+                <img [src]="liga.logoLigatring"  height="15px" width="15px">  {{liga.tipoLiga}}  
               </mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('ligaForm').errors?.required">Liga é Obrigatorio</mat-error>
@@ -44,7 +44,7 @@
         </mat-expansion-panel>
       </mat-accordion>
       <mat-divider> <h5>Times </h5> </mat-divider>
-      <mat-accordion>
+      <mat-accordion *ngIf="grupo.ligaModel">
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -54,21 +54,23 @@
                 Defina o principal critério de pontuação
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-grid-list cols="2" rowHeight="2:1" gutterSize="15px">
-                <mat-grid-tile >
-                  <mat-radio-group  class="modal-full-width" aria-label="Escolha um Critério"  [(ngModel)]="criterio1.tipoCriterioEnum"     name="criterioPrincipal"  formControlName="criterioPrincipalForm">
-                      <mat-radio-button  value="PLACAR">Resultado</mat-radio-button>
-                      <mat-radio-button  value="RESULTADO">Placar</mat-radio-button>
-                  </mat-radio-group> 
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field class="modal-full-width">
-                        <mat-label>Ponto</mat-label>
-                        <input type="number" matInput name="pontoCriterioPrincipal"  placeholder="Ponto" [(ngModel)]="criterio1.ponto" formControlName="pontoCriterioPrincipalForm">
-                    </mat-form-field>
-                </mat-grid-tile> 
-                
-            </mat-grid-list>  
+            <div class="modal-full-width" >
+              <div >
+                <h5 >Times : </h5>
+                <mat-grid-list cols="4" rowHeight="25px" >
+                        <mat-grid-tile *ngFor="let t of grupo.ligaModel.times; let i = index">
+                            <section  class="check-section" >
+                              <mat-checkbox class="check-margin"  (change)="changeEquipes($event)" [value]="t">
+                                <img [src]="t.escudoPathString"  height="15px" width="15px">
+                                  {{t.nomeAbrev}}
+                              </mat-checkbox>
+                            </section>
+                        </mat-grid-tile>
+                </mat-grid-list>  
+
+              </div>
+            </div>
+           
 
           
         </mat-expansion-panel>
@@ -98,7 +100,15 @@
                         <input type="number" matInput name="pontoCriterioPrincipal"  placeholder="Ponto" [(ngModel)]="criterio1.ponto" formControlName="pontoCriterioPrincipalForm">
                     </mat-form-field>
                 </mat-grid-tile> 
-                
+                <mat-grid-tile>
+                    <mat-checkbox name="bonusPrincipal" [(ngModel)]="criterio1.bonifica" formControlName="bonusPrincipalForm">Bonifica se acertar Todos</mat-checkbox>
+                </mat-grid-tile>
+                <mat-grid-tile *ngIf="criterio1.bonifica">
+                    <mat-form-field class="modal-full-width">
+                        <mat-label>Ponto Bonus</mat-label>
+                        <input type="number" matInput name="pontobonusPrincipal"  placeholder="Ponto" [(ngModel)]="criterio1.pontoBonus" formControlName="pontobonusPrincipalForm">
+                    </mat-form-field>
+                </mat-grid-tile>
             </mat-grid-list>  
 
           
@@ -129,6 +139,15 @@
                         <mat-label>Ponto</mat-label>
                         <input type="number" matInput name="pontoCriterioSecundario" [(ngModel)]="criterio2.ponto"  placeholder="Ponto"  formControlName="pontoCriterioSecundarioForm">
                     </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-checkbox name="bonusSecundario" [(ngModel)]="criterio2.bonifica" formControlName="bonusSecundarioForm">Bonifica se acertar Todos</mat-checkbox>
+                </mat-grid-tile>
+                <mat-grid-tile *ngIf="criterio2.bonifica">
+                    <mat-form-field class="modal-full-width">
+                        <mat-label>Ponto Bonus</mat-label>
+                        <input type="number" matInput name="pontobonusSecundario"  placeholder="Ponto" [(ngModel)]="criterio2.pontoBonus" formControlName="pontobonusSecundarioForm">
+                    </mat-form-field>
                 </mat-grid-tile>  
             </mat-grid-list>  
 
@@ -138,7 +157,6 @@
       </mat-accordion>
       
       <mat-divider> </mat-divider>
-      <mat-checkbox name="bonusCriterioSecundario" [(ngModel)]="possuiBonus2" formControlName="bonusCriterioSecundarioForm">Bonificar Placar ao Acertar Todos</mat-checkbox>
 
     
       

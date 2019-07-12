@@ -47,8 +47,8 @@
 <div mat-dialog-actions align="end">
    
     <span class="spacer"></span>
-    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent">Confirmar</button>
+    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent" [disabled]="!ligaForm.valid">Confirmar</button>
     <span class="spacer"></span>
-    <button mat-button [mat-dialog-close]="true" (click)="cancelar()" color="warn">Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()"  color="warn" >Cancelar</button>
 
 </div>

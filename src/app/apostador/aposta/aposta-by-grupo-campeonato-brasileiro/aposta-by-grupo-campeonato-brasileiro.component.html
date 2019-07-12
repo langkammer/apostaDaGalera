@@ -1,17 +1,18 @@
 <div class="container">
     <div class="card text-center">
         <div class="card-header">
-            {{rodadaAtual}} º Rodada
-
+            {{liga.tipoLiga}} {{liga.edicao}}
+            {{liga.rodadaAtual}} º Rodada
          <div class="row">
 
             <div class="mx-auto">
                 <ngb-pagination 
-                [collectionSize]="qtdsRodadas" 
-                [(page)]="rodadaAtual" 
+                [collectionSize]="liga.qtdRodadas" 
+                [(page)]="liga.rodadaAtual" 
                 [maxSize]="5"
                 [pageSize]="1"
-                [boundaryLinks]="true">
+                [boundaryLinks]="true"
+                (pageChange)="carregaRodada()">
               </ngb-pagination>
              
 
@@ -21,30 +22,30 @@
 
         </div>
         <div class="card-body">
-         <div class="row">
+         <div class="row" *ngFor="let r of liga.rodadas">
             <div class="col-12">
                 <div class="card text-center">
                     <div class="card-header">
-                        <p>Quartas 1º</p>
+                        <p>{{r.rodada}} º</p>
                     </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                               <tr class="row">
-                                <th class="col-3">Mandante</th>
-                                <th class="col-3">Visitante</th>
+                                <th class="col-3">Time 1</th>
+                                <th class="col-3">Time 2</th>
                                 <th class="col-6"></th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="row">
+                              <tr class="row" *ngFor="let p of r.partidas">
                                 <th class="col-3">
-                                  <img src="assets/equipesemfoto.png" height="10%" alt="image">  
-                                  CAM
+                                  <img [src]="p.time1.escudoPathString"  alt="image">  
+                                  {{p.time1.nomeAbrev}}
                                 </th>
                                 <td class="col-3">
-                                  <img src="assets/equipesemfoto.png" height="10%" alt="image">  
-                                  CRU
+                                    <img [src]="p.time2.escudoPathString"  alt="image">  
+                                    {{p.time2.nomeAbrev}}
                                 </td>
                                 <td class="col-6">
                                     <div class="justify-content-center row">
