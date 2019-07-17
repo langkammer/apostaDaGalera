@@ -1,0 +1,97 @@
+<h1 mat-dialog-title *ngIf="data"></h1>
+
+<div mat-dialog-content>
+  <div class="panel panel-default" >
+      <div class="panel-body">
+       <h2 class="display-4">
+         Equipes 
+       </h2>
+
+      </div>
+  </div>
+  <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Buscar" [(ngModel)]="nome" (keyup.enter)="loadPage()">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <button mat-raised-button color="accent" class="full-width" aria-label="Buscar" (click)="loadPage()">
+                    Buscar <mat-icon>search</mat-icon>
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button mat-raised-button color="primary" class="full-width" (click)="openModal('Nova',{})" aria-label="Novo">
+                    Novo <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+      </div>
+      <div class="panel-body">
+          <div class="mat-elevation-z8" >
+
+              <table mat-table [dataSource]="dataSource" >
+
+                <!-- Position Column -->
+                <ng-container  matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>  </th>
+                  <td mat-cell *matCellDef="let element"> 
+                      <mat-checkbox class="check-margin"   [checked]="element.select"  (change)="marcaEquipe($event,element)" >
+                      </mat-checkbox>
+                  </td>
+                </ng-container>
+                <!-- Position Column -->
+                <ng-container  matColumnDef="escudoPathString">
+                  <th mat-header-cell *matHeaderCellDef> Escudo. </th>
+                  <td mat-cell *matCellDef="let element"> 
+                      <img [src]="element.escudoPathString"  alt="image">  
+                  </td>
+                </ng-container>
+                
+  
+                <!-- Edicao -->
+                <ng-container matColumnDef="nomeCompleto">
+                    <th mat-header-cell *matHeaderCellDef  > Nome Abrv. </th>
+                    <td mat-cell *matCellDef="let element" > {{element.nomeCompleto}} </td>
+                </ng-container>
+            
+                <!-- Qtd Rodadas -->
+                <ng-container matColumnDef="sigla">
+                    <th mat-header-cell *matHeaderCellDef > Sigla </th>
+                    <td mat-cell *matCellDef="let element" > {{element.sigla}} </td>
+                </ng-container>
+
+                <!-- Btn  -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef class="column-right" > Acao </th>
+                    <td mat-cell *matCellDef="let element" class="column-right" > 
+                      <button mat-icon-button  aria-label="Menu" (click)="openMenu(element)">
+                          <mat-icon>more_vert</mat-icon>
+                      </button>
+                    </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+            
+              <!-- <mat-paginator showFirstLastButtons></mat-paginator> -->
+              <mat-paginator [length]="dataSource.totalElements" 
+              [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            
+      </div>  
+        
+  </div>
+</div>
+<div mat-dialog-actions align="center" *ngIf="data">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent" >Confirmar</button>
+    <span class="spacer"></span>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()"  color="warn" >Cancelar</button>
+
+</div>

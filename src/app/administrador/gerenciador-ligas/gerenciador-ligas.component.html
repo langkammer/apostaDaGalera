@@ -1,0 +1,128 @@
+
+<div class="panel panel-default" >
+    <div class="panel-body">
+      <h1 class="display-4">
+        Gerenciamento da Liga
+      </h1>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Nome da Liga</mat-label>
+                <input type="text" matInput placeholder="Placeholder">
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Edição / Ano</mat-label>
+                <input type="text" matInput placeholder="Placeholder">
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Tipo da Liga</mat-label>
+                <input type="number" matInput placeholder="Placeholder" disabled>
+            </mat-form-field>
+        </div>
+        <div class="col-md-2">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Formato Liga</mat-label>
+                <input type="number" matInput placeholder="Placeholder" disabled>
+            </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-2">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Numero de Rodadas</mat-label>
+                  <input type="number" matInput placeholder="Placeholder">
+              </mat-form-field>
+          </div>
+          <div class="col-md-2">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Rodada Atual</mat-label>
+                  <input type="number" matInput placeholder="Placeholder">
+              </mat-form-field>
+          </div>
+          <div class="col-md-3">
+              <mat-radio-group  class="modal-full-width" aria-label="Status"     name="Status"  >
+                  <mat-radio-button  value="true">Ativo</mat-radio-button>
+                  <mat-radio-button  value="false">Inativo</mat-radio-button>
+              </mat-radio-group> 
+          </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-10"></div>
+      </div>
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Equipes">
+                <div class="mat-elevation-z8">
+                    <mat-toolbar>
+                        <button color="primary"  mat-flat-button color="warn" (click)="openModalTime()">
+                            <mat-icon>compare_arrows</mat-icon> Vincular Equipes
+                         </button>
+                    </mat-toolbar>
+
+                    <!-- <div class="row">
+                         <div class="col-2">
+                            <button color="primary"  mat-mini-fab aria-label="Example icon-button with a heart icon" (click)="loadPage()">
+                                <mat-icon>add_circle_outline</mat-icon>
+                             </button>
+                         </div>
+                         <div class="col-10"></div>
+                    </div>
+                     -->
+                    <mat-divider></mat-divider>
+                    <table mat-table [dataSource]="timesDataSource">
+
+
+                        <!-- Position Column -->
+                        <ng-container  matColumnDef="sigla">
+                          <th mat-header-cell *matHeaderCellDef> Tipo Liga. </th>
+                          <td mat-cell *matCellDef="let element"> {{element.sigla}} </td>
+                        </ng-container>
+                        
+           
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="escudo">
+                            <th mat-header-cell *matHeaderCellDef  > Escudo </th>
+                            <td mat-cell *matCellDef="let element" >
+                               <img [src]="element.escudoPathString"  alt="image">  
+                            </td>
+                        </ng-container>
+                    
+         
+                        <!-- Btn  -->
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef class="column-right" > Acao </th>
+                            <td mat-cell *matCellDef="let element" class="column-right" > 
+                              <button mat-icon-button  aria-label="Menu" (click)="openMenuTime(element)">
+                                  <mat-icon>more_vert</mat-icon>
+                              </button>
+                            </td>
+                        </ng-container>
+                       
+                        <tr mat-header-row *matHeaderRowDef="columnsTimes"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnsTimes;">
+                        </tr>
+                      </table>
+                    
+                    
+                </div> 
+            </mat-tab>
+            <mat-tab label="Partidas">
+                
+            </mat-tab>
+        </mat-tab-group>
+       
+            
+    </div>  
+      
+</div>
+

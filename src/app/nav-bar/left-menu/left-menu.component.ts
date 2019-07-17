@@ -26,7 +26,7 @@ export class LeftMenuComponent implements OnInit {
     {name: 'Apostar', rota:'apostador/apostas', icon: 'thumbs_up_down'},
     {name: 'Grupos', rota:'apostador/grupos', icon: 'group_work'},
     {name: 'Ligas', rota:'admin/ligas', icon: 'import_contacts'},
-    {name: 'Usuarios', rota:'admin/user', icon: 'people'},
+    {name: 'Usuarios', rota:'admin/user', icon: 'people'}
     
   ]
 

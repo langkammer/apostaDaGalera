@@ -4,12 +4,13 @@ import {  MatBottomSheet, MatDialog } from '@angular/material';
 
 
 import { Liga } from 'src/app/interfaces/response-body.interface';
-import { BottonButtonComponent } from './bottom/bottom-button.component';
 import { MsgService } from 'src/app/core/msg.service';
 import { LigaService } from 'src/app/services/liga.service';
 import { LigaModalComponent } from './modal/liga-modal.component';
 import { LigasDataSource } from './ligas-data.source';
 import { tap } from 'rxjs/internal/operators/tap';
+import { Router } from "@angular/router";
+import { BottonButtonComponent } from "src/app/shared/bottom/bottom-button.component";
 
 @Component({
   selector: 'app-cad-ligas',
@@ -33,6 +34,7 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
         private bottomSheet: MatBottomSheet,
         private service:LigaService,
         private msgService:MsgService,
+        private router: Router,
         public dialog: MatDialog,
 
   ){}
@@ -87,7 +89,7 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
     this.bottomSheet.open(BottonButtonComponent).afterDismissed().subscribe(
       sucess => {
         if(!!sucess)
-          this.openModal(sucess,liga);
+          this.vaiParaMenu(sucess,liga);
         else
           console.log("Fechou sem resultados ...");  
       }
@@ -95,5 +97,11 @@ export class CadLigasComponent implements OnInit,AfterViewInit {
     console.log("ACESSOU SUB MENU");
   }
 
+  vaiParaMenu(tip,liga:Liga){
+    if(tip!="Deletar")
+      this.router.navigate(['/apostador/ligas/gerenciadorLiga', liga.id,tip ]);
+    else
+      this.openModal(tip,liga);
+  }
 
 }

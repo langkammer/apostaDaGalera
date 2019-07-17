@@ -6,13 +6,13 @@
          <div class="row">
 
             <div class="mx-auto">
-                <ngb-pagination 
-                [collectionSize]="liga.qtdRodadas" 
-                [(page)]="liga.rodadaAtual" 
-                [maxSize]="5"
-                [pageSize]="1"
-                [boundaryLinks]="true"
-                (pageChange)="carregaRodada()">
+              <ngb-pagination size="sm"
+                  [collectionSize]="liga.qtdRodadas" 
+                  [(page)]="liga.rodadaAtual" 
+                  [maxSize]="3"
+                  [pageSize]="1"
+                  [boundaryLinks]="false"
+                  (pageChange)="carregaRodada()">
               </ngb-pagination>
              
 
@@ -24,9 +24,10 @@
         <div class="card-body">
          <div class="row" *ngFor="let r of liga.rodadas">
             <div class="col-12">
-                <div class="card text-center">
+                <div class="card text-center" *ngFor="let p of r.partidas">
+                    <hr>
                     <div class="card-header">
-                        <p>{{r.rodada}} º</p>
+                        <p>{{p.rodada}} º</p>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -34,11 +35,11 @@
                               <tr class="row">
                                 <th class="col-3">Time 1</th>
                                 <th class="col-3">Time 2</th>
-                                <th class="col-6"></th>
+                                <th class="col-6">{{p.dataStr}} {{p.horario}}</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr class="row" *ngFor="let p of r.partidas">
+                              <tr class="row" >
                                 <th class="col-3">
                                   <img [src]="p.time1.escudoPathString"  alt="image">  
                                   {{p.time1.nomeAbrev}}
@@ -47,7 +48,7 @@
                                     <img [src]="p.time2.escudoPathString"  alt="image">  
                                     {{p.time2.nomeAbrev}}
                                 </td>
-                                <td class="col-6">
+                                <td class="col-4">
                                     <div class="justify-content-center row">
                                         <div class="col-md-5">
                                             <input type="number" class="form-control" >
@@ -63,7 +64,7 @@
                           </table>
                     </div>
                     <div class="card-footer text-muted">
-                      Estadio
+                        <p>{{p.local}} </p>
                     </div>
                   </div>
             </div>

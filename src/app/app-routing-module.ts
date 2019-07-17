@@ -18,6 +18,8 @@ import { ApostaByGrupoCopaBrasilComponent } from './apostador/aposta/aposta-by-g
 import { CadLigasComponent } from './administrador/cad-ligas/cad-ligas.component';
 import { MembrosGrupoComponent } from './apostador/grupo/membros-grupo/membros-grupo.component';
 import { UserAdminComponent } from './administrador/user-admin/user-admin.component';
+import { GerenciadorLigasComponent } from './administrador/gerenciador-ligas/gerenciador-ligas.component';
+import { CadEquipesComponent } from './administrador/cad-equipes/cad-equipes.component';
 
 
 const routes: Routes = [
@@ -68,6 +70,14 @@ const routes: Routes = [
     {
         path : 'admin/ligas',
         component : CadLigasComponent
+    },
+    {
+        path : 'admin/equipes',
+        component : CadEquipesComponent
+    },
+    {
+        path : 'apostador/ligas/gerenciadorLiga/:id/:tipView',
+        component : GerenciadorLigasComponent
     },
     {
         path : 'admin/user',

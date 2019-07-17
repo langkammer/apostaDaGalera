@@ -5,15 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
 
-import { CadLigasComponent } from './cad-ligas.component';
 import { AppRoutingModule } from 'src/app/app-routing-module';
 import { MyMaterialModule } from 'src/app/material-module';
-import { LigaModalComponent } from './modal/liga-modal.component';
 import { VMessageModule } from 'src/app/shared/components/vmessage/vmessage.module';
-import { BottonButtonComponent } from 'src/app/shared/bottom/bottom-button.component';
+import { GerenciadorLigasComponent } from './gerenciador-ligas.component';
 
 @NgModule({
-    declarations: [CadLigasComponent,BottonButtonComponent,LigaModalComponent],
+    declarations: [GerenciadorLigasComponent],
     imports: [ 
         CommonModule,
         ReactiveFormsModule,
@@ -24,9 +22,7 @@ import { BottonButtonComponent } from 'src/app/shared/bottom/bottom-button.compo
         AppRoutingModule,
         BlockUIModule.forRoot(),
         VMessageModule
-     ],   
-    exports: [LigaModalComponent], 
-    entryComponents: [BottonButtonComponent,LigaModalComponent]
+     ]
 
 })
-export class CadLigasModule { }
+export class GerenciadorLigasModule { }

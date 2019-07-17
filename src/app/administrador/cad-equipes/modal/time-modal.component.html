@@ -1,0 +1,66 @@
+<h1 mat-dialog-title>{{data.action}} Equipe </h1>
+
+<div mat-dialog-content>
+  <form class="modal-form" [formGroup]="form"  (submit)="confirmar()" >
+        <mat-form-field class="modal-full-width" appearance="outline">
+            <mat-label>Nome Abrev</mat-label>
+            <input type="text" 
+            matInput 
+            placeholder="Digite o Nome Abreviado da Equipe ex: CAM"
+            [(ngModel)]="equipe.nomeAbrev"
+            name="nomeAbrev"
+            formControlName="nomeAbrevForm"
+            >
+            <mat-error *ngIf="form.get('nomeAbrevForm').errors?.required">Campo é Obrigátorio</mat-error>
+        </mat-form-field>
+        <mat-form-field class="modal-full-width" appearance="outline">
+            <mat-label>Nome do Time</mat-label>
+            <input type="text" 
+            matInput 
+            placeholder="Digite Nome Completo Time"
+            [(ngModel)]="equipe.nomeCompleto"
+            name="nomeCompleto"
+            formControlName="nomeCompletoForm"
+            >
+            <mat-error *ngIf="form.get('nomeCompletoForm').errors?.required">Campo é Obrigátorio</mat-error>
+        </mat-form-field>
+        <mat-form-field class="modal-full-width" appearance="outline">
+            <mat-label>Sigla</mat-label>
+            <input type="text" 
+            matInput 
+            placeholder="Digite a Sigla"
+            [(ngModel)]="equipe.sigla"
+            name="sigla"
+            formControlName="siglaForm"
+            >
+            <mat-error *ngIf="form.get('siglaForm').errors?.required">Campo é Obrigátorio</mat-error>
+        </mat-form-field>
+        <mat-grid-list cols="2" rowHeight="2:1" rowHeight="40px" gutterSize="15px">
+                <mat-grid-tile >
+                    <img *ngIf="equipe.escudoPathString" [src]="equipe.escudoPathString"  width="40px" height="40px"  alt="image">  
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="modal-full-width" appearance="outline">
+                            <mat-label>Url Escudo</mat-label>
+                            <input type="text" 
+                            matInput 
+                            placeholder="Digite a Url Escudo"
+                            [(ngModel)]="equipe.escudoPathString"
+                            name="escudoPathString"
+                            formControlName="escudoPathStringForm">
+                
+                            <mat-error *ngIf="form.get('siglaForm').errors?.required">Campo é Obrigátorio</mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+        </mat-grid-list>
+      <span class="spacer"></span>      
+  </form>
+</div>
+<div mat-dialog-actions align="center">
+   
+    <span class="spacer"></span>
+    <button  mat-raised-button (click)="confirmar()"  style="width: 100%"  color="accent" [disabled]="data.action == 'Ver'">Confirmar</button>
+    <span class="spacer"></span>
+    <button mat-button [mat-dialog-close]="true" (click)="cancelar()"  color="warn" >Cancelar</button>
+
+</div>

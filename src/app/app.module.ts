@@ -22,6 +22,8 @@ import { FirebaseModuleImports } from "./firebase/firebase.mdule";
 import { MyMaterialModule } from "./material-module";
 import { VMessageModule } from "./shared/components/vmessage/vmessage.module";
 import { SidenavService } from "./services/sidenav.service";
+import { GerenciadorLigasModule } from "./administrador/gerenciador-ligas/gerenciador-ligas.module";
+import { EquipesModule } from "./administrador/cad-equipes/cad-equipes.module";
 
 
 
@@ -40,7 +42,9 @@ import { SidenavService } from "./services/sidenav.service";
     FirebaseModuleImports,
     VMessageModule,
     ChecklistModule,
-    FlexLayoutModule
+    GerenciadorLigasModule,
+    FlexLayoutModule,
+    EquipesModule
     
 
   ],

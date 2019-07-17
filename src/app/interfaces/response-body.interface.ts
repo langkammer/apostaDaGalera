@@ -98,11 +98,13 @@ export interface MatDataDialogInterface {
 }
 
 export interface Equipe{
+    id:number;
     nomeAbrev: string;
     nomeCompleto: string;
     escudoPathString: string;
     sigla: string;
     url: string;
+    select:boolean;
 }
 
 export interface MembroGrupo{

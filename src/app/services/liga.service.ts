@@ -34,4 +34,8 @@ export class LigaService {
     return this.request.post('/liga/delete', liga);
   }
 
+  getById(id:number){
+    return this.request.get('/liga/getByID?id='+ id);
+
+  }
 }

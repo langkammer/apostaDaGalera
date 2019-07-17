@@ -5,15 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlockUIModule } from 'ng-block-ui';
 
-import { CadLigasComponent } from './cad-ligas.component';
 import { AppRoutingModule } from 'src/app/app-routing-module';
 import { MyMaterialModule } from 'src/app/material-module';
-import { LigaModalComponent } from './modal/liga-modal.component';
 import { VMessageModule } from 'src/app/shared/components/vmessage/vmessage.module';
-import { BottonButtonComponent } from 'src/app/shared/bottom/bottom-button.component';
+import { CadEquipesComponent } from './cad-equipes.component';
+import { TimeModalComponent } from './modal/time-modal.component';
 
 @NgModule({
-    declarations: [CadLigasComponent,BottonButtonComponent,LigaModalComponent],
+    declarations: [CadEquipesComponent,TimeModalComponent],
     imports: [ 
         CommonModule,
         ReactiveFormsModule,
@@ -25,8 +24,8 @@ import { BottonButtonComponent } from 'src/app/shared/bottom/bottom-button.compo
         BlockUIModule.forRoot(),
         VMessageModule
      ],   
-    exports: [LigaModalComponent], 
-    entryComponents: [BottonButtonComponent,LigaModalComponent]
+    exports: [TimeModalComponent], 
+    entryComponents: [TimeModalComponent]
 
 })
-export class CadLigasModule { }
+export class EquipesModule { }
