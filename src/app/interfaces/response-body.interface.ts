@@ -69,6 +69,7 @@ export interface Rodada {
     partidas:Partida[];
 }
 
+
 export interface Partida{
     id:number;
     ligaModel:Liga;

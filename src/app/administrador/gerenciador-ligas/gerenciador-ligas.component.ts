@@ -1,15 +1,25 @@
 import { MatPaginator } from "@angular/material/paginator";
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {  MatDialog, MatBottomSheet } from '@angular/material';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import {  MatDialog, MatBottomSheet,  MatTreeNestedDataSource } from '@angular/material';
+import {  NestedTreeControl } from "@angular/cdk/tree";
 
 
-import { Liga, ResponseBodyInterface, Equipe, Rodada } from 'src/app/interfaces/response-body.interface';
+import { Liga, ResponseBodyInterface, Equipe, Rodada,  Partida } from 'src/app/interfaces/response-body.interface';
 import { LigaService } from 'src/app/services/liga.service';
 import { ActivatedRoute } from "@angular/router";
 import { BottonButtonComponent } from "src/app/shared/bottom/bottom-button.component";
 import { MsgService } from "src/app/core/msg.service";
 import { CadEquipesComponent } from "../cad-equipes/cad-equipes.component";
 import * as _ from "lodash"
+
+interface RodadaNod {
+  id:number;
+  rodada:number;
+  dataAbertura:string;
+  horaAbertura:string;
+  partidas:Partida[];
+  children?:RodadaNod[];
+}
 
 @Component({
   selector: 'app-gerenciador-ligas',
@@ -29,12 +39,12 @@ export class GerenciadorLigasComponent implements OnInit {
   columnsTimes: string[] = ['sigla','escudo' ,'id'];
 
   timesDataSource: Equipe[];
-
-  rodadaDataSource: Rodada[];
-
-
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  treeControl = new NestedTreeControl<RodadaNod>(node => node.children);
+  rodadaDataSource = new MatTreeNestedDataSource<RodadaNod>();
+  
   constructor(
         private bottomSheet: MatBottomSheet,
         private service:LigaService,
@@ -59,6 +69,7 @@ export class GerenciadorLigasComponent implements OnInit {
           if(res.data){
             this.liga = res.data;
             this.timesDataSource = this.liga.times;
+            this.rodadaDataSource.data = this.liga.rodadas;
             this.marcaTrueEquipes();
           }
       }
